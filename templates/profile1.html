@@ -1,0 +1,1273 @@
+{% load static %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alaa Wadi</title>
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <!-- custom css file link  -->
+    <style>
+
+        :root {
+            --main-color: #4C84FF;
+            --primary-bg-color: #fff;
+            --secondary-bg-color: #eee;
+            --primary-text-color: #222;
+            --secondary-text-color: #666;
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap');
+        * {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-transform: capitalize;
+            outline: none;
+            border: none;
+            text-decoration: none;
+            transition: all .3s cubic-bezier(.38, 1.15, .7, 1.12);
+        }
+        
+        *::selection {
+            background-color: var(--main-color);
+            color: #fff;
+        }
+        
+        html {
+            font-size: 62.5%;
+            overflow-x: hidden;
+        }
+        
+        html::-webkit-scrollbar {
+            width: 1.3rem;
+        }
+        
+        html::-webkit-scrollbar-track {
+            background-color: var(--secondary-bg-color);
+        }
+        
+        html::-webkit-scrollbar-thumb {
+            background-color: var(--main-color);
+        }
+        
+        body {
+            background: var(--secondary-bg-color);
+        }
+        
+        body.dark-theme {
+            --primary-bg-color: #252C48;
+            --secondary-bg-color: #171C32;
+            --primary-text-color: #fff;
+            --secondary-text-color: #eee;
+        }
+        
+        section {
+            min-height: 100vh;
+            padding: 1rem;
+            padding: 0 8%;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: .9rem 3.5rem;
+            font-size: 2rem;
+            background: none;
+            color: #fff;
+            border-radius: .5rem;
+            box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+            margin-top: 1rem;
+            z-index: 0;
+            position: relative;
+            overflow: hidden;
+            border: .2rem solid var(--main-color);
+        }
+
+
+
+        .btn1 {
+            background-color: #F08080; /* Blue background */
+            border: none; /* Remove borders */
+            color: white; /* White text */
+            padding: 12px 16px; /* Some padding */
+            font-size: 16px; /* Set a font size */
+            cursor: pointer; /* Mouse pointer on hover */
+          }
+          
+          /* Darker background on mouse-over */
+          .btn1:hover {
+            background-color: red;
+          }
+
+
+
+          .btn2 {
+            background-color: #90EE90; /* Blue background */
+            border: none; /* Remove borders */
+            color: white; /* White text */
+            padding: 12px 16px; /* Some padding */
+            font-size: 16px; /* Set a font size */
+            cursor: pointer; /* Mouse pointer on hover */
+          }
+          
+          /* Darker background on mouse-over */
+          .btn2:hover {
+            background-color: green;
+          }
+
+
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: .5rem;
+            background: var(--main-color);
+            height: 85%;
+            width: 95%;
+            z-index: -1;
+            transition: .2s linear;
+        }
+        
+        .btn:hover:before {
+            top: 100%;
+            transform: translate(-50%, 100%);
+        }
+        
+        .btn:hover {
+            color: var(--primary-text-color);
+        }
+        
+        .heading {
+            font-size: 5rem;
+            color: var(--primary-text-color);
+            text-align: center;
+            padding: 1rem;
+            text-transform: uppercase;
+        }
+        
+        .heading span {
+            color: var(--main-color);
+            text-transform: uppercase;
+        }
+        
+        #menu {
+            font-size: 2rem;
+            background: var(--main-color);
+            color: #fff;
+            border-radius: 5rem;
+            height: 5rem;
+            width: 5rem;
+            text-align: center;
+            line-height: 5rem;
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            cursor: pointer;
+        }
+        
+        #menu.fa-times {
+            transform: rotate(-180deg);
+        }
+        
+        .navbar {
+            position: fixed;
+            top: 2.4rem;
+            right: 2.5rem;
+            padding: 1.1rem 2rem;
+            padding-right: 4rem;
+            z-index: 999;
+            border: .2rem solid var(--main-color);
+            border-radius: 1rem;
+            background: var(--primary-bg-color);
+            opacity: 0;
+            transform-origin: top right;
+            transform: scale(0);
+        }
+        
+        .navbar.nav-toggle {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .navbar a {
+            display: block;
+            font-size: 2rem;
+            padding: 1rem;
+            padding-right: 7rem;
+            color: var(--primary-text-color);
+        }
+        
+        .navbar a:hover {
+            color: var(--main-color);
+            transform: translateX(1rem);
+        }
+        
+        .home {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .home .image {
+            flex: 1 1 40rem;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .home .image img {
+            height: 50rem;
+            box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .3);
+            border-top: 3rem solid var(--primary-bg-color);
+            border-right: 3rem solid var(--primary-bg-color);
+            border-bottom: 3rem solid var(--main-color);
+            border-left: 3rem solid var(--main-color);
+            border-radius: .5rem;
+        }
+        
+        .home .image video {
+            height: 50rem;
+            box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .3);
+            border-top: 3rem solid var(--primary-bg-color);
+            border-right: 3rem solid var(--primary-bg-color);
+            border-bottom: 3rem solid var(--main-color);
+            border-left: 3rem solid var(--main-color);
+            border-radius: .5rem;
+        }
+        
+        .home .content {
+            flex: 1 1 40rem;
+            padding: 1rem;
+        }
+        
+        .home .content .hello {
+            display: inline-block;
+            padding: 1rem 0;
+            font-size: 2.6rem;
+            color: var(--secondary-text-color);
+        }
+        
+        .home .content h3 {
+            color: var(--primary-text-color);
+            font-size: 5rem;
+        }
+        
+        .home .content h3 span {
+            color: var(--main-color);
+        }
+        
+        .home .content p {
+            padding: 1rem 0;
+            color: var(--secondary-text-color);
+            font-size: 2rem;
+        }
+        
+        .about .row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .about .row .box {
+            flex: 1 1 40rem;
+            background-color: var(--primary-bg-color);
+            border-radius: .5rem;
+            box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+            padding: .5rem 1.5rem;
+            margin: 1.5rem;
+        }
+        
+        .about .row .box .title {
+            color: var(--primary-text-color);
+            font-size: 2.5rem;
+            padding: 1rem 0;
+        }
+        
+        .about .row .box .progress {
+            padding: 1rem 0;
+        }
+        
+        .about .row .box .progress h3 {
+            font-size: 1.7rem;
+            color: var(--secondary-text-color);
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .about .row .box .progress .bar {
+            height: 2.5rem;
+            border-radius: .5rem;
+            border: .2rem solid var(--main-color);
+            padding: .5rem;
+            margin: 1rem 0;
+        }
+        
+        .about .row .box .progress .bar span {
+            height: 100%;
+            border-radius: .3rem;
+            background-color: var(--main-color);
+            display: block;
+        }
+        
+        .about .row .box:nth-child(1) .progress:nth-child(2) .bar span {
+            width: 95%;
+        }
+        
+        .about .row .box:nth-child(1) .progress:nth-child(3) .bar span {
+            width: 80%;
+        }
+        
+        .about .row .box:nth-child(1) .progress:nth-child(4) .bar span {
+            width: 65%;
+        }
+        
+        .about .row .box:nth-child(1) .progress:nth-child(5) .bar span {
+            width: 75%;
+        }
+        
+        .about .row .box:nth-child(2) .progress:nth-child(2) .bar span {
+            width: 98%;
+        }
+        
+        .about .row .box:nth-child(2) .progress:nth-child(3) .bar span {
+            width: 67%;
+        }
+        
+        .about .row .box:nth-child(2) .progress:nth-child(4) .bar span {
+            width: 75%;
+        }
+        
+        .about .row .box:nth-child(2) .progress:nth-child(5) .bar span {
+            width: 60%;
+        }
+        
+        .about .row .box .exp-box {
+            padding: 0 1.8rem;
+            margin-top: 1rem;
+            margin-bottom: 2rem;
+            border-left: .2rem solid var(--main-color);
+            position: relative;
+        }
+        
+        .about .row .box .exp-box h3 {
+            color: var(--main-color);
+            font-size: 2rem;
+        }
+        
+        .about .row .box .exp-box p {
+            color: var(--secondary-text-color);
+            font-size: 1.5rem;
+            padding: 1rem 0;
+        }
+        
+        .about .row .box .exp-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -1rem;
+            border-radius: 50%;
+            height: 2rem;
+            width: 2rem;
+            background: var(--main-color);
+        }
+        
+        .about .download {
+            background: var(--primary-bg-color);
+            border-radius: .5rem;
+            text-align: center;
+            box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+            padding: 2rem;
+            padding-bottom: 3rem;
+            margin: 1rem;
+        }
+        
+        .services .box-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .services .box-container .box {
+            background: var(--primary-bg-color);
+            border-radius: .5rem;
+            box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+            margin: 1rem;
+            padding: 1rem;
+            width: 35rem;
+            text-align: center;
+            position: relative;
+            z-index: 0;
+        }
+        
+        .services .box-container .box .number {
+            position: absolute;
+            top: 1.5rem;
+            left: 2rem;
+            font-size: 2.5rem;
+            color: var(--primary-text-color);
+        }
+        
+        .services .box-container .box img {
+            height: 7rem;
+            width: 7rem;
+            margin: 1rem;
+        }
+        
+        .services .box-container .box h3 {
+            font-size: 2rem;
+            color: var(--main-color);
+        }
+        
+        .services .box-container .box p {
+            font-size: 1.5rem;
+            color: var(--secondary-text-color);
+            padding: 1rem;
+        }
+        
+        .services .box-container .box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: var(--main-color);
+            z-index: -1;
+            clip-path: circle(25% at 0 0);
+            opacity: .1;
+            transition: .3s;
+        }
+        
+        .services .box-container .box:hover::before {
+            clip-path: circle(100%);
+        }
+        
+        .portfolio .button-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 1rem 0;
+        }
+        
+        .portfolio .button-container .btn {
+            margin: 1rem;
+            cursor: pointer;
+        }
+        
+        .portfolio .image-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 1rem 0;
+        }
+        
+        .portfolio .image-container .box {
+            width: 35rem;
+            margin: 1rem;
+            border-radius: .5rem;
+            box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+            overflow: hidden;
+            height: 25rem;
+            position: relative;
+            border: 1.5rem solid var(--primary-bg-color);
+            cursor: pointer;
+        }
+        
+        .portfolio .image-container .box img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .portfolio .image-container .box .info {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: var(--primary-bg-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: .9;
+            transform: scale(0);
+        }
+        
+        .portfolio .image-container .box:hover .info {
+            transform: scale(1);
+        }
+        
+        .portfolio .image-container .box .info h3 {
+            font-size: 2.5rem;
+            color: var(--primary-text-color);
+        }
+        
+        .blog .box-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .blog .box-container .box {
+            width: 33rem;
+            border-radius: .5rem;
+            box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+            margin: 1.5rem;
+            background: var(--primary-bg-color);
+            overflow: hidden;
+        }
+        
+        .blog .box-container .box img {
+            width: 100%;
+            height: 20rem;
+            object-fit: cover;
+        }
+        
+        .blog .box-container .box .content {
+            padding: 1.5rem;
+        }
+        
+        .blog .box-container .box .content .info {
+            border-radius: .5rem;
+            box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+            text-align: center;
+            position: relative;
+            font-size: 1.5rem;
+            color: var(--primary-text-color);
+            background: var(--secondary-bg-color);
+            padding: 1rem;
+            margin-top: -4rem;
+            margin-bottom: 1rem;
+        }
+        
+        .blog .box-container .box .content .info i {
+            color: var(--main-color);
+            padding: 0 1rem;
+        }
+        
+        .blog .box-container .box .content .title {
+            color: var(--primary-text-color);
+            display: block;
+            font-size: 2.5rem;
+            padding: .5rem 0;
+        }
+        
+        .blog .box-container .box .content .title:hover {
+            text-decoration: underline;
+            color: var(--main-color);
+        }
+        
+        .blog .box-container .box .content p {
+            color: var(--secondary-text-color);
+            padding: .5rem 0;
+            font-size: 1.5rem;
+        }
+        
+        .contact .row {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .contact .row form {
+            flex: 1 1 40rem;
+            background: var(--primary-bg-color);
+            padding: 2rem;
+            margin: 1rem;
+            box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+            border-radius: .5rem;
+        }
+        
+        .contact .row .map {
+            flex: 1 1 40rem;
+            margin: 1rem;
+            box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+            border-radius: .5rem;
+            border: 2rem solid var(--primary-bg-color);
+            width: 100%;
+        }
+        
+        .contact .row form .inputBox {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .contact .row form input,
+        .contact .row form textarea {
+            padding: 1rem 0;
+            margin: 1rem 0;
+            font-size: 1.7rem;
+            border-bottom: .1rem solid var(--secondary-text-color);
+            text-transform: none;
+            background: none;
+            color: var(--main-color);
+            width: 100%;
+        }
+        
+        .contact .row form input::placeholder,
+        .contact .row form textarea::placeholder {
+            text-transform: capitalize;
+            color: var(--secondary-text-color);
+        }
+        
+        .contact .row form input:focus,
+        .contact .row form textarea:focus {
+            border-color: var(--main-color);
+        }
+        
+        .contact .row form .inputBox input {
+            width: 49%;
+        }
+        
+        .contact .row form textarea {
+            height: 15rem;
+            resize: none;
+        }
+        
+        .contact .row form .btn {
+            cursor: pointer;
+        }
+        
+        .contact .box-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .contact .box-container .box {
+            flex: 1 1 30rem;
+            margin: 1rem;
+            padding: 3rem 1rem;
+            background: var(--primary-bg-color);
+            box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+            border-radius: .5rem;
+            text-align: center;
+        }
+        
+        .contact .box-container .box i {
+            height: 6rem;
+            width: 6rem;
+            line-height: 6rem;
+            border-radius: 50%;
+            font-size: 3rem;
+            background: var(--secondary-bg-color);
+            color: var(--main-color);
+        }
+        
+        .contact .box-container .box h3 {
+            color: var(--primary-text-color);
+            padding: 1rem 0;
+            font-size: 2rem;
+        }
+        
+        .contact .box-container .box p {
+            font-size: 1.5rem;
+            color: var(--secondary-text-color);
+        }
+        
+        .footer {
+            padding: 2.5rem 1rem;
+            text-align: center;
+            font-size: 2rem;
+            color: var(--primary-text-color);
+            background: var(--primary-bg-color);
+            margin-top: 1rem;
+        }
+        
+        .footer span {
+            color: var(--main-color);
+        }
+
+        .footer span a {
+            color: var(--main-color);
+        }
+        
+        
+        #theme-toggler {
+            position: fixed;
+            top: 8.5rem;
+            right: 2rem;
+            z-index: 998;
+            height: 5rem;
+            width: 5rem;
+            line-height: 5rem;
+            text-align: center;
+            font-size: 2rem;
+            background: var(--main-color);
+            color: #fff;
+            cursor: pointer;
+            border-radius: 5rem;
+        }
+        
+        #theme-toggler.fa-sun {
+            transform: rotate(-180deg);
+        }
+        
+        
+        /* media queries  */
+        
+        @media (max-width:991px) {
+            html {
+                font-size: 55%;
+            }
+            section {
+                padding: 1rem;
+                padding: 0 3%;
+            }
+        }
+        
+        @media (max-width:768px) {
+            .home .image img {
+                height: auto;
+                width: 100%;
+            }
+        }
+        
+        @media (max-width:400px) {
+            html {
+                font-size: 50%;
+            }
+            .services .box-container .box {
+                width: 100%;
+            }
+            .portfolio .image-container .box {
+                width: 100%;
+            }
+            .blog .box-container .box {
+                width: 100%;
+            }
+            .contact .row form .inputBox input {
+                width: 100%;
+            }
+        }
+
+    </style>
+
+</head>
+<body>
+   
+
+
+
+
+
+
+
+
+
+
+
+<!-- header section starts  -->
+
+<header>
+
+    <div id="menu" class="fas fa-bars"></div>
+
+    <nav class="navbar">
+        <a href="{% url 'home' %}" style="color:#fa1d86;">   <img src="{% static 'images/logo.png' %}" style='height:40px;width:40px' alt="Avatar" class="avatar">        
+        Data Tec</a>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#portfolio">Projects</a>
+        <a href="#blog">Blogs</a>
+        <a href="#contact">Contact</a>
+        
+    </nav>
+
+    <div id="theme-toggler" class="fas fa-moon"></div>
+
+</header>
+
+<!-- header section ends -->
+
+<!-- home section starts  -->
+<section class="home" id="home">
+
+    <div class="image">
+        {% if homs.image %}
+        <img src="{{homs.image.url}}" alt="">
+        {% else %}
+        <img src="{% static 'images/teacher-5.png' %}" alt="">
+        {% endif %}
+<!--        <img src="{% static 'images/main-img.jpg' %}" alt="">
+-->    </div>
+
+    <div class="content">
+        <span class="hello">hello</span>
+        {% if homs.name %}
+        <h3> I'M <span>{{homs.name}}</span> </h3>
+        {% else %}
+        <h3> I'M <span>Your name</span> </h3>
+        {% endif %}
+
+        {% if homs.desciption %}
+        <p>{{homs.desciption}}</p>
+    {% else %}
+    <p>Your work </p>
+    {% endif %}
+        <a href="#about" class="btn">about me</a>
+    </div>
+</section>
+
+
+<!-- home section ends -->
+
+<section class="about" id="about">
+
+    <h1 class="heading"> about <span>me</span> </h1>
+
+    <div class="row">
+
+        <div class="box">
+            <h3 class="title">coding skills</h3>
+            {% for x in about %}
+            <div class="progress">
+                <h3> {{x.skl}} <span>{{x.mea}}%</span> </h3>
+                <div class="bar"><span style="width:{{x.mea}}%"></span></div>
+            </div>
+
+            {% endfor %}
+        </div>
+
+        <div class="box">
+            <h3 class="title">professional skills</h3>
+{% for per in personal %}
+            <div class="progress">
+                <h3> {{per.skl}} <span>{{per.mea}}%</span> </h3>
+                <div class="bar"><span style="width:{{per.mea}}%"></span></div>
+            </div>
+{% endfor %}
+           
+        </div>
+
+        <div class="box">
+            <h3 class="title">experience</h3>
+            {% for exp in exps %}
+            <div class="exp-box">
+                <h3>{{exp.title}}</h3>
+                <p>{{exp.discription}}</p>
+            </div>
+            {% endfor %}
+        </div>
+
+
+
+        <div class="box">
+            <h3 class="title">education</h3>
+
+{% for edu in edus %}
+            <div class="exp-box">
+                <h3>{{edu.title}}</h3>
+                <p>{{edu.discription}}</p>
+            </div>
+{% endfor %}
+         
+        </div>
+
+    </div>
+
+    <div class="download">
+       {% if file.file %}
+        <a href="{{file.file.url}}" class="btn" download="{{file.file.url}}"> download CV </a>
+        {% else %}
+        <a href="{% static 'images/teacher-4.png' %}" class="btn" download="{% static 'images/teacher-4.png' %}"> download CV </a>
+        {% endif %}
+    </div>
+
+</section>
+
+<!-- service section starts  -->
+
+<section class="services" id="services">
+
+    <h1 class="heading"> <span>my</span> services </h1>
+{% for serv in servs|slice:'0:1' %}
+    {% if serv.user == request.user %}    
+    <a href="{% url 'pro_add_serv' %}" class="btn2">add service</a>
+{% endif %}
+{% endfor %}
+    <div class="box-container">
+
+        {% for serv in servs %}
+        <a href="{% url 'serv_detail' serv.slug %}">
+        <div class="box">
+            {% if serv.image %}
+            <img src="{{serv.image.url}}" alt="">
+            {% else %}
+            <img src="{% static 'images/teacher-4.png' %}" alt="">
+            {% endif %}
+            <h3>{{serv.title}}</h3>
+            <p>{{serv.small_desc}}</p>
+            <br>
+            
+            {% if serv.user == request.user %}
+            <a href="{% url 'delete_from_myprofile' serv.id %}" class="btn1">Delete</a>
+            <a href="{% url 'pro_serv_update' serv.id %}" class="btn2">Update</a>
+            {% endif %}
+            <br>
+            
+        </div>
+    </a>
+{% endfor %}
+  
+    </div>
+
+</section>
+
+<!-- service section ends -->
+
+<!-- portfolio section starts  -->
+
+<section class="portfolio" id="portfolio">
+
+    <h1 class="heading"> <span>my</span> projects </h1>
+    
+    <div class="button-container">
+       {% for cat in category %}
+        <div class="btn cat{{cat.id}}">{{cat.title}}</div>
+        {% endfor %}
+        <!--<div class="btn" data-filter="design">design</div>
+        <div class="btn" data-filter="code">code</div>
+        <div class="btn" data-filter="website">website</div>
+        <div class="btn" data-filter="brand">brand</div>-->
+    </div>
+    {% if user.is_authenticated %}
+    <a href="{% url 'pro_add_project' %}" class="btn2">add project</a>
+    {% endif %}
+    <div class="image-container">
+{% for port in ports %}
+<a href="{% url 'blog_detail1' port.slug %}">
+        <div class="box imghide port{{port.project_Category.id}}">
+            {% if port.image %}
+            <img src="{{port.image.url}}" alt="">
+            {% else %}
+            <img src="{% static 'images/teacher-4.png' %}" alt="">
+            {% endif %}
+            
+            <div class="info">
+                <h3>{{port.title}}</h3>
+                <h3>{% if port.user == request.user %}
+                    <a href="{% url 'delete_from_myprofile' port.id %}" class="btn1">Delete</a>
+                    <a href="{% url 'pro_project_update' port.id %}" class="btn2">Update</a>
+                    {% endif %}    </h3>
+            
+            </div>
+        
+        </div>
+        
+    </a>
+{% endfor %}
+        
+    </div>
+
+</section>
+
+<!-- portfolio section ends -->
+
+<!-- blog section start  -->
+
+<section class="blog" id="blog">
+
+    <h1 class="heading"> <span>my</span> blogs </h1>
+    {% if user.is_authenticated %}
+    <a href="{% url 'pro_add_blog' %}" class="btn2">add blog</a>
+    {% endif %}
+    <div class="box-container">
+
+{% for blog in blogs %}
+
+        <div class="box">
+            {% if blog.image %}
+            <img src="{{blog.image.url}}" alt="">
+            {% else %}
+            <img src="{% static 'images/teacher-4.png' %}" alt="">
+            {% endif %}
+            <div class="content">
+                <h3 class="info"> <i class="fas fa-user"></i> by: {{blog.user}} <i class="fas fa-calendar"></i> {{blog.created_at|date:'d M o'}} </h3>
+                <a href="#" class="title"> {{blog.title}} </a>
+                <p>{{blog.small_desc}}</p>
+                <a href="{% url 'blog_detail1' blog.slug %}" class="btn">read more</a>
+                <br><br><br>
+                {% if blog.user == request.user %}
+                <a href="{% url 'delete_from_myprofile' blog.id %}" class="btn1">Delete</a>
+                <a href="{% url 'pro_blog_update' blog.id %}" class="btn2">Update</a>
+                {% endif %}
+            </div>
+        </div>
+{% endfor %}
+
+       
+    </div>
+
+</section>
+
+<!-- blog section ends -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- blog section start  -->
+
+<section class="blog" id="blog">
+
+    <h1 class="heading"> <span>my</span> courses </h1>
+    {% if user.is_authenticated %}
+    <a href="{% url 'pro_add_course' %}" class="btn2">add Course</a>
+    {% endif %}
+    <div class="box-container">
+
+{% for x in course %}
+
+        <div class="box">
+            {% if x.img %}
+            <img src="{{x.img.url}}" alt="">
+            {% else %}
+            <img src="{% static 'images/teacher-4.png' %}" alt="">
+            {% endif %}
+            <div class="content">
+                <h3 class="info"> <i class="fas fa-user"></i> by: {{x.owner}} <i class="fas fa-calendar"></i> {{x.date|date:'d M o'}} </h3>
+                <a href="#" class="title"> {{x.title}} </a>
+                <p>{{x.desciption}}</p>
+                <a href="{% url 'course' x.slug %}" class="btn">read more</a>
+                <br><br><br>
+                {% if x.owner == request.user %}
+                <a href="{% url 'delete_course_from_myprofile' x.id %}" class="btn1">Delete</a>
+                <a href="{% url 'pro_course_update' x.id %}" class="btn2">Update</a>
+                {% endif %}
+                
+            </div>
+        </div>
+{% endfor %}
+
+       
+    </div>
+
+</section>
+
+<!-- blog section ends -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- contact section starts  -->
+
+<section class="contact" id="contact">
+
+    <h1 class="heading"> contact <span>me</span> </h1>
+
+    <div class="box-container">
+        {% for con in cont %}
+        <div class="box">
+            <i class="fas fa-phone"></i>
+            <h3>my number</h3>
+            <p>{{con.phone}}</p>
+        </div>
+
+        <div class="box">
+            <i class="fas fa-envelope"></i>
+            <h3>my email</h3>
+            <p>{{con.email}}</p>
+        </div>
+
+        <div class="box">
+            <i class="fas fa-map-marker-alt"></i>
+            <h3>my address</h3>
+            <p>{{con.address}}</p>
+        </div>
+{% endfor %}
+    </div>
+
+    <div class="row">
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="inputBox">
+                <input type="email" placeholder="email"  name="email">
+            </div>
+            <input type="text" placeholder="subject"  name="subject">
+            <textarea cols="30" rows="10" placeholder="message"  name="message"></textarea>
+            <button class="btn"> send message </button>
+        </form>
+{% for loc in locs %}
+        <iframe class="map" src="{{loc.url}}" allowfullscreen="" loading="lazy"></iframe>
+{% endfor %}
+    </div>
+
+    
+
+</section>
+
+
+<!-- contact section ends -->
+
+<!-- footer section  -->
+
+<div class="footer">created by <span><a href="{% url 'alaa' %}"> Alaa Wadi </a></span> | all rights reserved!</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- jquery cdn link  -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- custom js file link  -->
+<script src="{% static 'script.js' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"> </script> 
+
+
+
+
+
+<script>
+    $(document).ready(function(){
+
+        $('#menu').click(function(){
+            $(this).toggleClass('fa-times');
+            $('.navbar').toggleClass('nav-toggle');
+        });
+      
+        $(window).on('scroll load',function(){
+          $('#menu').removeClass('fa-times');
+          $('.navbar').removeClass('nav-toggle');
+        });
+      
+       /*
+       
+        $('.portfolio .button-container .btn').click(function(){
+      
+          let filter = $(this).attr('data-filter');
+      
+          if(filter == 'all'){
+            $('.portfolio .image-container .box').show('400')
+          }else{
+            $('.portfolio .image-container .box').not('.'+filter).hide('200');
+            $('.portfolio .image-container .box').filter('.'+filter).show('400');
+          }
+      
+        });
+      
+       
+       
+       
+       */
+        $('#theme-toggler').click(function(){
+          $(this).toggleClass('fa-sun');
+          $('body').toggleClass('dark-theme');
+        });
+      
+        // smooth scrolling 
+      
+        $('a[href*="#"]').on('click',function(e){
+      
+          e.preventDefault();
+      
+          $('html, body').animate({
+      
+            scrollTop : $($(this).attr('href')).offset().top,
+      
+          },
+            500,
+            'linear'
+          );
+      
+        });
+      
+      });
+</script>
+</body>
+<script>
+{% for port in ports %}
+$(".cat{{port.project_Category.id}}").click(function(){
+  $(".imghide").hide()
+  $(".port{{port.project_Category.id}}").show()
+});
+
+{% endfor %}
+</script>
+

@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<section class="heading">
+    <h3>our blogs</h3>
+    <p> <a href="{% url 'home' %}">home >></a> blogs </p>
+    {% if user.is_authenticated %}
+    <a href="{% url 'add_blog' %}" class="btn">add blog</a>
+    {% endif %}
+</section>
+
+<!-- blog section starts  -->
+
+
+<section class="category" id="category">
+    {% for cat in category %}
+    <a href="#category" class="box cat{{cat.id}}">
+        <img src="{{cat.img.url}}" alt="">
+        <h3>{{cat.title}}</h3>
+    </a>
+    {% endfor%}
+
+
+</section>
+
+
+<section class="blog">
+    
+
+
+    
+    {% for x in blogs %}
+    <div class="box bloghide x{{x.blog_Category.id}}">
+        <div class="image">
+            {% if x.image %}
+            <img src="{{x.image.url}}" alt="">
+            {% else %}
+            <img src="{% static 'images/course-4.png' %}" alt="">
+            {% endif %}
+        </div>
+        <div class="content">
+            <div class="icons">
+                <a href="#"> <i class="fas fa-clock"></i> {{x.created_at|date:'d M o'}} </a>
+                <a href="#"> <i class="fas fa-user"></i> by {{x.user}} </a>
+            </div>
+            <h3>{{x.title}}</h3>
+            <a href="{% url 'blog_detail1' x.slug %}" class="btn">read more</a>
+            <br>
+        <br>
+            {% if x.user == request.user %}
+            <a href="{% url 'blog_delete' x.id %}" class="btn1">Delete</a>
+            <a href="{% url 'blog_update' x.id %}" class="btn2">update</a>
+            {% endif %}
+         
+        </div>
+    </div>
+            
+   {% endfor %}
+
+</section>
+
+<!-- blog section ends -->
+
+{% endblock  %}

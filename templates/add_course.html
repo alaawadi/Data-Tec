@@ -1,0 +1,35 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<section class="heading">
+    <h3>our blogs</h3>
+    <p> <a href="{% url 'home' %}">home >></a> add project</p>
+</section>
+
+<section class="blog">
+
+<div class="container mt-5">
+
+    <form method="post" class="mt-5 pt-5 mb-5 pb-5" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            
+            <div class="col-md-12">
+
+                {{form.media}}
+                {{form.as_p}}
+            </div>
+
+            <div class="col-md-12">
+            </div>
+
+
+        <button type="submit" class="btn btn-primary mt-4" style="font-size:20px">Create</button>
+
+    </form>
+
+</div>
+
+</section>
+{% endblock %}

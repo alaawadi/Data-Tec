@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<section class="heading">
+    <h3>contact us</h3>
+    <p> <a href="{% url 'home' %}">home >></a> contact </p>
+</section>
+
+
+
+
+
+<section class="contact">
+    {% for x in contact %}
+    <div class="icons-container">
+
+        <div class="icons">
+            <i class="fas fa-phone"></i>
+            <h3>our number</h3>
+            <p>{{x.phone}}</p>
+        </div>
+
+        <div class="icons">
+            <i class="fas fa-envelope"></i>
+            <h3>our email</h3>
+            <p>{{x.email}}</p>
+        </div>
+
+        <div class="icons">
+            <i class="fas fa-map-marker-alt"></i>
+            <h3>our address</h3>
+            <p>{{x.address}}</p>
+        </div>
+
+    </div>
+    {% endfor %}
+    <div class="row">
+
+        <form method="POST">
+            {% csrf_token %}
+            <h3>get in touch</h3>
+            <input type="text" placeholder="course" class="box" name="subject">
+            <input type="email" placeholder="email" class="box" name="email">
+            <textarea type="text" placeholder="message" cols="30" rows="10" name="message"></textarea>
+            <input type="submit" value="send message" class="btn">
+        </form>
+        {% for x in contact %}
+        <iframe class="map" src="{{x.map}}" allowfullscreen="" loading="lazy"></iframe>
+        {% endfor %}
+    </div>
+</section>
+
+
+
+
+{% endblock  %}

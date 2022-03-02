@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+
+<section class="heading">
+    <h3>our courses</h3>
+    <p> <a href="{% url 'home' %}">home >></a> courses </p>
+    {% if user.is_authenticated %}
+    <a class='btn' href="{% url 'add_course' %}">add course</a> 
+    {% endif %}
+</section>
+
+    
+    <section class="category" id='category'>
+        {% for cat in category %}
+        <a href="#category" class="box cat{{cat.id}}">
+            {% if cat.img %}
+            <img src="{{cat.img.url}}" alt="">
+            {% else %}
+            <img src="{% static 'images/logo.png' %}" alt="">
+            {% endif %}
+            <h3>{{cat.title}}</h3>
+        </a>
+        {% endfor %}
+
+    
+    </section>
+    
+    <!-- categories section ends -->
+    
+    
+    
+    
+   
+<!-- courses section starts  -->
+
+<section class="blog">
+
+    {% for course in courses %}
+    <div class="box coursehide course{{course.category.id}} ">
+        <div class="image">
+            {% if course.img %}
+            <img src="{{course.img.url}}" alt="">
+            {% else %}
+            <img src="{% static 'images/course-4.png' %}" alt="">
+            {% endif %}
+        </div>
+        <div class="content">
+            <div class="icons">
+                <a href="#"> <i class="fas fa-clock"></i> {{course.date|date:'d M o'}} </a>
+                <a href="#"> <i class="fas fa-user"></i> by {{course.owner}}</a>
+            </div>
+            <h3>{{course.title}}</h3>
+            <p>{{course.disc}}</p>
+            
+            <a href="{% url 'course' course.slug %}"  class="btn">Start now!</a>
+            <br>
+        <br>
+            {% if course.owner == request.user %}
+            <a class='btn1' href="{% url 'course_delete' course.id %}">delete</a>
+            <a class='btn2' href="{% url 'course_update' course.id %}">update</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</section>
+
+<!-- courses section ends -->
+
+
+
+
+    
+{% endblock  %}

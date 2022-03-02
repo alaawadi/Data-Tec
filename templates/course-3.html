@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+<!-- header section ends -->
+
+{% block content %}
+
+<section class="heading">
+    <h3></h3>
+
+    <p> <a href="{% url 'courses' %}">courses >></a> {{cors.title}} </p>
+    {% if user.is_authenticated %}
+    <a class='btn' href="{% url 'add_lesson' %}">add lesson</a>
+    {% endif %}
+</section>
+
+<!-- courses section starts  -->
+
+
+ 
+<section class="blog">
+
+    {% for vid in video %}
+    <a href="{% url 'blog_detail' vid.slug %}"><div class="box">
+        <div class="image">
+            {% if vid.image %}
+            <img src="{{vid.image.url}}" alt="">
+            {% else %}
+            <img src="{% static 'images/course-4.png' %}" alt="">
+            {% endif %}
+        </div>
+        <div class="content">
+            <h3>{{forloop.counter}}- {{vid.title}}</h3>
+        
+        <br>
+            {% if vid.user == request.user %}
+            <a href="{% url 'lesson_delete' vid.id %}" class="btn1">Delete </a>
+            <a href="{% url 'video_update' vid.id %}" class="btn2">update </a>
+            {% endif %}
+        </div>
+    </div></a>
+    {% endfor %}
+</section>
+
+
+<!-- courses section ends -->
+
+
+
+
+
+
+
+{% endblock %}

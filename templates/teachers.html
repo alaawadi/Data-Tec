@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<section class="heading">
+    <h3>our teachers</h3>
+    <p> <a href="{% url 'home' %}">home >></a> teachers </p>
+</section>
+
+<!-- teachers section starts  -->
+
+<section class="teachers">
+    {% for x in teachers %}
+    <div class="box">
+        <div class="image">
+            {% if x.image %}
+            <img src="{{x.image.url}}" alt="">
+            {% else %}
+            <img src="{% static 'images/teacher-4.png' %}" alt="">
+            {% endif %}
+            <div class="share">
+                <a href="" class="fab fa-facebook-f"></a>
+                <a href="" class="fab fa-twitter"></a>
+                <a href="{% url 'profile' x.slug %}" class="fab fa-instagram"></a>
+                <a href="" class="fab fa-github"></a>
+                <a href="" class="fab fa-github"></a>
+            </div>
+        </div>
+        <div class="content">
+            <h3>{{x.name}}</h3>
+            <span>fjkomvl</span>
+        </div>
+    </div>
+
+    {% endfor %}
+
+</section>
+
+<!-- teachers section ends -->
+
+
+
+
+
+
+
+{% endblock  %}

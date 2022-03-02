@@ -1,0 +1,1277 @@
+{% load static %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alaa Wadi</title>
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <!-- custom css file link  -->
+    <style>
+
+        :root {
+            --main-color: #4C84FF;
+            --primary-bg-color: #fff;
+            --secondary-bg-color: #eee;
+            --primary-text-color: #222;
+            --secondary-text-color: #666;
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap');
+        * {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-transform: capitalize;
+            outline: none;
+            border: none;
+            text-decoration: none;
+            transition: all .3s cubic-bezier(.38, 1.15, .7, 1.12);
+        }
+        
+        *::selection {
+            background-color: var(--main-color);
+            color: #fff;
+        }
+        
+        html {
+            font-size: 62.5%;
+            overflow-x: hidden;
+        }
+        
+        html::-webkit-scrollbar {
+            width: 1.3rem;
+        }
+        
+        html::-webkit-scrollbar-track {
+            background-color: var(--secondary-bg-color);
+        }
+        
+        html::-webkit-scrollbar-thumb {
+            background-color: var(--main-color);
+        }
+        
+        body {
+            background: var(--secondary-bg-color);
+        }
+        
+        body.dark-theme {
+            --primary-bg-color: #252C48;
+            --secondary-bg-color: #171C32;
+            --primary-text-color: #fff;
+            --secondary-text-color: #eee;
+        }
+        
+        section {
+            min-height: 100vh;
+            padding: 1rem;
+            padding: 0 8%;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: .9rem 3.5rem;
+            font-size: 2rem;
+            background: none;
+            color: #fff;
+            border-radius: .5rem;
+            box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+            margin-top: 1rem;
+            z-index: 0;
+            position: relative;
+            overflow: hidden;
+            border: .2rem solid var(--main-color);
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: .5rem;
+            background: var(--main-color);
+            height: 85%;
+            width: 95%;
+            z-index: -1;
+            transition: .2s linear;
+        }
+        
+        .btn:hover:before {
+            top: 100%;
+            transform: translate(-50%, 100%);
+        }
+        
+        .btn:hover {
+            color: var(--primary-text-color);
+        }
+        
+        .heading {
+            font-size: 5rem;
+            color: var(--primary-text-color);
+            text-align: center;
+            padding: 1rem;
+            text-transform: uppercase;
+        }
+        
+        .heading span {
+            color: var(--main-color);
+            text-transform: uppercase;
+        }
+        
+        #menu {
+            font-size: 2rem;
+            background: var(--main-color);
+            color: #fff;
+            border-radius: 5rem;
+            height: 5rem;
+            width: 5rem;
+            text-align: center;
+            line-height: 5rem;
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            cursor: pointer;
+        }
+        
+        #menu.fa-times {
+            transform: rotate(-180deg);
+        }
+        
+        .navbar {
+            position: fixed;
+            top: 2.4rem;
+            right: 2.5rem;
+            padding: 1.1rem 2rem;
+            padding-right: 4rem;
+            z-index: 999;
+            border: .2rem solid var(--main-color);
+            border-radius: 1rem;
+            background: var(--primary-bg-color);
+            opacity: 0;
+            transform-origin: top right;
+            transform: scale(0);
+        }
+        
+        .navbar.nav-toggle {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .navbar a {
+            display: block;
+            font-size: 2rem;
+            padding: 1rem;
+            padding-right: 7rem;
+            color: var(--primary-text-color);
+        }
+        
+        .navbar a:hover {
+            color: var(--main-color);
+            transform: translateX(1rem);
+        }
+        
+        .home {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .home .image {
+            flex: 1 1 40rem;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .home .image img {
+            height: 50rem;
+            box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .3);
+            border-top: 3rem solid var(--primary-bg-color);
+            border-right: 3rem solid var(--primary-bg-color);
+            border-bottom: 3rem solid var(--main-color);
+            border-left: 3rem solid var(--main-color);
+            border-radius: .5rem;
+        }
+        
+        .home .image video {
+            height: 50rem;
+            box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .3);
+            border-top: 3rem solid var(--primary-bg-color);
+            border-right: 3rem solid var(--primary-bg-color);
+            border-bottom: 3rem solid var(--main-color);
+            border-left: 3rem solid var(--main-color);
+            border-radius: .5rem;
+        }
+        
+        .home .content {
+            flex: 1 1 40rem;
+            padding: 1rem;
+        }
+        
+        .home .content .hello {
+            display: inline-block;
+            padding: 1rem 0;
+            font-size: 2.6rem;
+            color: var(--secondary-text-color);
+        }
+        
+        .home .content h3 {
+            color: var(--primary-text-color);
+            font-size: 5rem;
+        }
+        
+        .home .content h3 span {
+            color: var(--main-color);
+        }
+        
+        .home .content p {
+            padding: 1rem 0;
+            color: var(--secondary-text-color);
+            font-size: 2rem;
+        }
+        
+        .about .row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .about .row .box {
+            flex: 1 1 40rem;
+            background-color: var(--primary-bg-color);
+            border-radius: .5rem;
+            box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+            padding: .5rem 1.5rem;
+            margin: 1.5rem;
+        }
+        
+        .about .row .box .title {
+            color: var(--primary-text-color);
+            font-size: 2.5rem;
+            padding: 1rem 0;
+        }
+        
+        .about .row .box .progress {
+            padding: 1rem 0;
+        }
+        
+        .about .row .box .progress h3 {
+            font-size: 1.7rem;
+            color: var(--secondary-text-color);
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .about .row .box .progress .bar {
+            height: 2.5rem;
+            border-radius: .5rem;
+            border: .2rem solid var(--main-color);
+            padding: .5rem;
+            margin: 1rem 0;
+        }
+        
+        .about .row .box .progress .bar span {
+            height: 100%;
+            border-radius: .3rem;
+            background-color: var(--main-color);
+            display: block;
+        }
+        
+        .about .row .box:nth-child(1) .progress:nth-child(2) .bar span {
+            width: 95%;
+        }
+        
+        .about .row .box:nth-child(1) .progress:nth-child(3) .bar span {
+            width: 80%;
+        }
+        
+        .about .row .box:nth-child(1) .progress:nth-child(4) .bar span {
+            width: 65%;
+        }
+        
+        .about .row .box:nth-child(1) .progress:nth-child(5) .bar span {
+            width: 75%;
+        }
+        
+        .about .row .box:nth-child(2) .progress:nth-child(2) .bar span {
+            width: 98%;
+        }
+        
+        .about .row .box:nth-child(2) .progress:nth-child(3) .bar span {
+            width: 67%;
+        }
+        
+        .about .row .box:nth-child(2) .progress:nth-child(4) .bar span {
+            width: 75%;
+        }
+        
+        .about .row .box:nth-child(2) .progress:nth-child(5) .bar span {
+            width: 60%;
+        }
+        
+        .about .row .box .exp-box {
+            padding: 0 1.8rem;
+            margin-top: 1rem;
+            margin-bottom: 2rem;
+            border-left: .2rem solid var(--main-color);
+            position: relative;
+        }
+        
+        .about .row .box .exp-box h3 {
+            color: var(--main-color);
+            font-size: 2rem;
+        }
+        
+        .about .row .box .exp-box p {
+            color: var(--secondary-text-color);
+            font-size: 1.5rem;
+            padding: 1rem 0;
+        }
+        
+        .about .row .box .exp-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -1rem;
+            border-radius: 50%;
+            height: 2rem;
+            width: 2rem;
+            background: var(--main-color);
+        }
+        
+        .about .download {
+            background: var(--primary-bg-color);
+            border-radius: .5rem;
+            text-align: center;
+            box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+            padding: 2rem;
+            padding-bottom: 3rem;
+            margin: 1rem;
+        }
+        
+        .services .box-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .services .box-container .box {
+            background: var(--primary-bg-color);
+            border-radius: .5rem;
+            box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+            margin: 1rem;
+            padding: 1rem;
+            width: 35rem;
+            text-align: center;
+            position: relative;
+            z-index: 0;
+        }
+        
+        .services .box-container .box .number {
+            position: absolute;
+            top: 1.5rem;
+            left: 2rem;
+            font-size: 2.5rem;
+            color: var(--primary-text-color);
+        }
+        
+        .services .box-container .box img {
+            height: 7rem;
+            width: 7rem;
+            margin: 1rem;
+        }
+        
+        .services .box-container .box h3 {
+            font-size: 2rem;
+            color: var(--main-color);
+        }
+        
+        .services .box-container .box p {
+            font-size: 1.5rem;
+            color: var(--secondary-text-color);
+            padding: 1rem;
+        }
+        
+        .services .box-container .box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: var(--main-color);
+            z-index: -1;
+            clip-path: circle(25% at 0 0);
+            opacity: .1;
+            transition: .3s;
+        }
+        
+        .services .box-container .box:hover::before {
+            clip-path: circle(100%);
+        }
+        
+        .portfolio .button-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 1rem 0;
+        }
+        
+        .portfolio .button-container .btn {
+            margin: 1rem;
+            cursor: pointer;
+        }
+        
+        .portfolio .image-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 1rem 0;
+        }
+        
+        .portfolio .image-container .box {
+            width: 35rem;
+            margin: 1rem;
+            border-radius: .5rem;
+            box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+            overflow: hidden;
+            height: 25rem;
+            position: relative;
+            border: 1.5rem solid var(--primary-bg-color);
+            cursor: pointer;
+        }
+        
+        .portfolio .image-container .box img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .portfolio .image-container .box .info {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: var(--primary-bg-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: .9;
+            transform: scale(0);
+        }
+        
+        .portfolio .image-container .box:hover .info {
+            transform: scale(1);
+        }
+        
+        .portfolio .image-container .box .info h3 {
+            font-size: 2.5rem;
+            color: var(--primary-text-color);
+        }
+        
+        .blog .box-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .blog .box-container .box {
+            width: 33rem;
+            border-radius: .5rem;
+            box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+            margin: 1.5rem;
+            background: var(--primary-bg-color);
+            overflow: hidden;
+        }
+        
+        .blog .box-container .box img {
+            width: 100%;
+            height: 20rem;
+            object-fit: cover;
+        }
+        
+        .blog .box-container .box .content {
+            padding: 1.5rem;
+        }
+        
+        .blog .box-container .box .content .info {
+            border-radius: .5rem;
+            box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+            text-align: center;
+            position: relative;
+            font-size: 1.5rem;
+            color: var(--primary-text-color);
+            background: var(--secondary-bg-color);
+            padding: 1rem;
+            margin-top: -4rem;
+            margin-bottom: 1rem;
+        }
+        
+        .blog .box-container .box .content .info i {
+            color: var(--main-color);
+            padding: 0 1rem;
+        }
+        
+        .blog .box-container .box .content .title {
+            color: var(--primary-text-color);
+            display: block;
+            font-size: 2.5rem;
+            padding: .5rem 0;
+        }
+        
+        .blog .box-container .box .content .title:hover {
+            text-decoration: underline;
+            color: var(--main-color);
+        }
+        
+        .blog .box-container .box .content p {
+            color: var(--secondary-text-color);
+            padding: .5rem 0;
+            font-size: 1.5rem;
+        }
+        
+        .contact .row {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .contact .row form {
+            flex: 1 1 40rem;
+            background: var(--primary-bg-color);
+            padding: 2rem;
+            margin: 1rem;
+            box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+            border-radius: .5rem;
+        }
+        
+        .contact .row .map {
+            flex: 1 1 40rem;
+            margin: 1rem;
+            box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+            border-radius: .5rem;
+            border: 2rem solid var(--primary-bg-color);
+            width: 100%;
+        }
+        
+        .contact .row form .inputBox {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .contact .row form input,
+        .contact .row form textarea {
+            padding: 1rem 0;
+            margin: 1rem 0;
+            font-size: 1.7rem;
+            border-bottom: .1rem solid var(--secondary-text-color);
+            text-transform: none;
+            background: none;
+            color: var(--main-color);
+            width: 100%;
+        }
+        
+        .contact .row form input::placeholder,
+        .contact .row form textarea::placeholder {
+            text-transform: capitalize;
+            color: var(--secondary-text-color);
+        }
+        
+        .contact .row form input:focus,
+        .contact .row form textarea:focus {
+            border-color: var(--main-color);
+        }
+        
+        .contact .row form .inputBox input {
+            width: 49%;
+        }
+        
+        .contact .row form textarea {
+            height: 15rem;
+            resize: none;
+        }
+        
+        .contact .row form .btn {
+            cursor: pointer;
+        }
+        
+        .contact .box-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .contact .box-container .box {
+            flex: 1 1 30rem;
+            margin: 1rem;
+            padding: 3rem 1rem;
+            background: var(--primary-bg-color);
+            box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1);
+            border-radius: .5rem;
+            text-align: center;
+        }
+        
+        .contact .box-container .box i {
+            height: 6rem;
+            width: 6rem;
+            line-height: 6rem;
+            border-radius: 50%;
+            font-size: 3rem;
+            background: var(--secondary-bg-color);
+            color: var(--main-color);
+        }
+        
+        .contact .box-container .box h3 {
+            color: var(--primary-text-color);
+            padding: 1rem 0;
+            font-size: 2rem;
+        }
+        
+        .contact .box-container .box p {
+            font-size: 1.5rem;
+            color: var(--secondary-text-color);
+        }
+        
+        .footer {
+            padding: 2.5rem 1rem;
+            text-align: center;
+            font-size: 2rem;
+            color: var(--primary-text-color);
+            background: var(--primary-bg-color);
+            margin-top: 1rem;
+        }
+        
+        .footer span {
+            color: var(--main-color);
+        }
+        
+        #theme-toggler {
+            position: fixed;
+            top: 8.5rem;
+            right: 2rem;
+            z-index: 998;
+            height: 5rem;
+            width: 5rem;
+            line-height: 5rem;
+            text-align: center;
+            font-size: 2rem;
+            background: var(--main-color);
+            color: #fff;
+            cursor: pointer;
+            border-radius: 5rem;
+        }
+        
+        #theme-toggler.fa-sun {
+            transform: rotate(-180deg);
+        }
+        
+        
+        /* media queries  */
+        
+        @media (max-width:991px) {
+            html {
+                font-size: 55%;
+            }
+            section {
+                padding: 1rem;
+                padding: 0 3%;
+            }
+        }
+        
+        @media (max-width:768px) {
+            .home .image img {
+                height: auto;
+                width: 100%;
+            }
+        }
+        
+        @media (max-width:400px) {
+            html {
+                font-size: 50%;
+            }
+            .services .box-container .box {
+                width: 100%;
+            }
+            .portfolio .image-container .box {
+                width: 100%;
+            }
+            .blog .box-container .box {
+                width: 100%;
+            }
+            .contact .row form .inputBox input {
+                width: 100%;
+            }
+        }
+
+    </style>
+    <style>
+        .container{
+            height: 350px;
+            width: 430px;
+            position: relative;
+          }
+          .container .wrapper{
+            position: relative;
+            height: 300px;
+            width: 100%;
+            border-radius: 10px;
+            background: #fff;
+            border: 2px dashed #c2cdda;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+          }
+          .wrapper.active{
+            border: none;
+          }
+          .wrapper .image{
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          .wrapper img{
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+          }
+          .wrapper .icon{
+            font-size: 100px;
+            color: #9658fe;
+          }
+          .wrapper .text{
+            font-size: 20px;
+            font-weight: 500;
+            color: #5B5B7B;
+          }
+          .wrapper #cancel-btn i{
+            position: absolute;
+            font-size: 20px;
+            right: 15px;
+            top: 15px;
+            color: #9658fe;
+            cursor: pointer;
+            display: none;
+          }
+          .wrapper.active:hover #cancel-btn i{
+            display: block;
+          }
+          .wrapper #cancel-btn i:hover{
+            color: #e74c3c;
+          }
+          .wrapper .file-name{
+            position: absolute;
+            bottom: 0px;
+            width: 100%;
+            padding: 8px 0;
+            font-size: 18px;
+            color: #fff;
+            display: none;
+            background: linear-gradient(135deg,#3a8ffe 0%,#9658fe 100%);
+          }
+          .wrapper.active:hover .file-name{
+            display: block;
+          }
+          .container #custom-btn{
+            margin-top: 30px;
+            display: block;
+            width: 100%;
+            height: 50px;
+            border: none;
+            outline: none;
+            border-radius: 25px;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            background: linear-gradient(135deg,#3a8ffe 0%,#9658fe 100%);
+          }
+    </style>
+</head>
+<body>
+   
+
+
+
+
+
+
+
+
+
+
+
+<!-- header section starts  -->
+
+<header>
+
+    <div id="menu" class="fas fa-bars"></div>
+
+    <nav class="navbar">
+        <a href="{% url 'home2' %}">home2</a>
+        <a href="{% url 'home' %}">home</a>
+        <a href="{% url 'services' %}">services</a>
+        <a href="{% url 'courses' %}">courses</a>
+        <a href="{% url 'blog' %}">blogs</a>
+        <a href="{% url 'projects' %}">projects</a>
+        <a href="{% url 'teachers' %}">team</a>
+        <a href="{% url 'home2' %}">contact</a>
+    </nav>
+
+    <div id="theme-toggler" class="fas fa-moon"></div>
+
+</header>
+
+<!-- header section ends -->
+
+<!-- home section starts  -->
+
+<section class="home" id="home">
+    <div class="image">
+        
+        <img src="{{home.image.url}}" alt="">
+
+
+        <!--  
+          <img src="{% static 'images/main-img.jpg' %}" alt="">
+-->    </div>
+   
+
+    <div class="content">
+        <span class="hello">hello</span>
+        
+        <h3> I'M <span>         <form method='post'><input placeholder="your name" style="height:35px;width:300px;border: 2px solid blue;border-radius: 4px;"></form>  </span> </h3>
+        
+        <p>   <form method='post'><input placeholder="Your work" style="height:35px;width:300px;border: 2px solid blue;border-radius: 4px;"></form>  </p>
+    
+        <button onclick="defaultBtnActive()" id="custom-btn" class="btn">Upload image</button>
+        <input id="default-btn" type="file" hidden name="file">
+    </div>
+
+</section>
+
+
+
+
+<div id="hidme">
+    ();
+};<div class="wrapper">
+       <div class="image">
+          <img src="file" alt="">
+       </div>
+       <div class="content">
+          <div class="icon">
+             <i class="fas fa-cloud-upload-alt"></i>
+          </div>
+          <div class="text">
+             No file chosen, yet!
+          </div>
+       </div>
+       <div id="cancel-btn">
+          <i class="fas fa-times"></i>
+       </div>
+       <div class="file-name">
+          File name here
+       </div>
+    </div>
+
+ </div>
+
+<!-- home section ends -->
+</div>
+<section class="about" id="about">
+
+    <h1 class="heading"> about <span>me</span> </h1>
+
+    <div class="row">
+
+        <div class="box">
+            <h3 class="title">coding skills</h3>
+            {% for x in about %}
+            <div class="progress">
+                <h3> {{x.skl}} <span> </span> </h3>
+                <div class="bar"><span style="width:{{x.mea}}%"></span></div>
+            </div>
+
+            {% endfor %}
+            <form method='post'><input class="codskl" placeholder="skills name" style="height:35px;width:300px;border: 2px solid blue;border-radius: 4px;"></form>  
+            <form method='post'><input class="codsklnum" placeholder="%" style="height:35px;width:300px;border: 2px solid blue;border-radius: 4px;"></form>
+        </div>
+
+        <div class="box">
+            <h3 class="title">professional skills</h3>
+{% for x in professional_skillsform %}
+            <div class="progress">
+                <h3> <form method='POST'>{% csrf_token %}{{x.skl}}</form> <span>  <form method='POST'>{% csrf_token %}{{x.mea}}</form> %</span> </h3>
+                <div class="bar"><span style="width:{{x.mea}}%">    </span></div>
+            </div>
+{% endfor %}
+        
+
+
+        <form method='post'><input class="codskl" placeholder="skills name" style="height:35px;width:300px;border: 2px solid blue;border-radius: 4px;"></form>  
+        <form method='post'><input class="codsklnum" placeholder="%" style="height:35px;width:300px;border: 2px solid blue;border-radius: 4px;"></form>     
+        
+    
+    
+    </div>
+
+        <div class="box">
+            <h3 class="title">experience</h3>
+            {% for x in experienceform %}
+            <div class="exp-box">
+                <h3>  <form method='POST'>{% csrf_token %}{{x.title}}</form>  </h3>
+                <p>  <form method='POST'>{% csrf_token %}{{x.discription}}</form>  </p>
+            </div>
+            {% endfor %}
+            
+            
+            <form method='post'><input class="codskl" placeholder="skills name" style="height:35px;width:300px;border: 2px solid blue;border-radius: 4px;"></form>  
+            <form method='post'><input class="codsklnum" placeholder="%" style="height:35px;width:300px;border: 2px solid blue;border-radius: 4px;"></form>
+
+        </div>
+
+
+
+        <div class="box">
+            <h3 class="title">education</h3>
+
+{% for X in educationform %}
+            <div class="exp-box">
+                <h3>  <form method='POST'>{% csrf_token %}{{x.title}}</form>  </h3>
+                <p>  <form method='POST'>{% csrf_token %}{{x.discription}}</form>  </p>
+            </div>
+{% endfor %}
+    
+
+        <form method='post'><input class="codskl" placeholder="skills name" style="height:35px;width:300px;border: 2px solid blue;border-radius: 4px;"></form>  
+        <form method='post'><input class="codsklnum" placeholder="%" style="height:35px;width:300px;border: 2px solid blue;border-radius: 4px;"></form>
+
+
+        </div>
+
+    </div>
+
+    <div class="download">
+        <button onclick="defaultBtnActive()" id="custom-btn" class="btn">Upload Cv</button>
+        <input id="default-btn" type="file" hidden name="file">
+        
+    </div>
+
+</section>
+
+<!-- service section starts  -->
+
+<section class="services" id="services">
+
+    <h1 class="heading"> <span>my</span> services </h1>
+
+    <div class="box-container">
+
+        {% for x in servicesform %}
+        <div class="box">
+            <img src="{{x.img.url}}" alt="">
+            <form method='POST'>{% csrf_token %}{{x.img.url}}</form>
+            <h3><form method='POST'>{% csrf_token %}{{serv.title}}</form></h3>
+            <p><form method='POST'>{% csrf_token %}{{serv.discription}}</form></p>
+        </div>
+{% endfor %}
+
+
+        
+
+    </div>
+    <form method='post'><input class="codskl" placeholder="skills name" style="height:35px;width:300px;border: 2px solid blue;border-radius: 4px;"></form>  
+    <br>
+    <br><br>
+    <form method='post'><input class="codsklnum" placeholder="%" style="height:35px;width:300px;border: 2px solid blue;border-radius: 4px;"></form>
+    <br>
+    <button onclick="defaultBtnActive()" id="custom-btn" class="btn">Upload image</button>
+    <input id="default-btn" type="file" hidden name="file">
+</section>
+
+<!-- service section ends -->
+
+<!-- portfolio section starts  -->
+
+<section class="portfolio" id="portfolio">
+
+    <h1 class="heading"> <span>my</span> portfolio </h1>
+    <form method='post'><input class="codskl" placeholder="skills name" style="height:35px;width:300px;border: 2px solid blue;border-radius: 4px;"></form>
+    <div class="button-container">
+       {% for x in category %}
+        <div class="btn">{{x.title}}</div>
+        {% endfor %}
+        <!--<div class="btn" data-filter="design">design</div>
+        <div class="btn" data-filter="code">code</div>
+        <div class="btn" data-filter="website">website</div>
+        <div class="btn" data-filter="brand">brand</div>-->
+
+          
+        
+
+    </div>
+
+    <div class="image-container">
+{% for x in projectform %}
+        <div class="box imghide">
+            <img src="{{x.image.url}}" alt="">
+            <form method='POST'>{% csrf_token %}{{x.image.url}}</form>
+            <div class="info">
+                <h3><a href="#"><form method='POST'>{% csrf_token %}{{x.title}}</form></a></h3>
+            </div>
+        </div>
+{% endfor %}
+        
+    </div>
+
+</section>
+
+<!-- portfolio section ends -->
+
+<!-- blog section start  -->
+
+<section class="blog" id="blog">
+
+    <h1 class="heading"> <span>my</span> blogs </h1>
+
+    <div class="box-container">
+
+{% for x in blogmodelform %}
+        <div class="box">
+            <img src="{{x.image.url}}" alt="">
+            <form method='POST'>{% csrf_token %}{{x.image.url}}</form>
+            <div class="content">
+                <h3 class="info"> <i class="fas fa-user"></i> by: <form method='POST'>{% csrf_token %}{{x.user}}</form> <i class="fas fa-calendar"></i> {{blog.date|date:'d M o'}} </h3>
+                <a href="#" class="title"> <form method='POST'>{% csrf_token %}{{x.title}}</form> </a>
+                <p><form method='POST'>{% csrf_token %}{{x.small_desc}}</form></p>
+                <a href="#" class="btn">read more</a>
+            </div>
+            
+                                
+<button class="boxed-btn3 w-100" type="submit">Save</button>
+
+        </div>
+{% endfor %}
+
+       
+    </div>
+
+</section>
+
+<!-- blog section ends -->
+
+
+<!-- footer section  -->
+
+<div class="footer">created by <span> Alaa Wadi </span> | all rights reserved!</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- jquery cdn link  -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- custom js file link  -->
+<script src="{% static 'script.js' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"> </script> 
+
+
+
+
+<script>
+
+    var comment=$('.codskl').val(); // your comment text box
+        $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            // Mostramos un mensaje con la respuesta de PHP
+            success: function(data) {
+
+            $('.skl').append("</br>"+comment); // list of comments. its inserting your last comment at the end of line.
+
+           }
+        }); 
+
+</script>
+
+
+
+
+
+<script>
+    $(document).ready(function(){
+
+        $('#menu').click(function(){
+            $(this).toggleClass('fa-times');
+            $('.navbar').toggleClass('nav-toggle');
+        });
+      
+        $(window).on('scroll load',function(){
+          $('#menu').removeClass('fa-times');
+          $('.navbar').removeClass('nav-toggle');
+        });
+      
+       /*
+       
+        $('.portfolio .button-container .btn').click(function(){
+      
+          let filter = $(this).attr('data-filter');
+      
+          if(filter == 'all'){
+            $('.portfolio .image-container .box').show('400')
+          }else{
+            $('.portfolio .image-container .box').not('.'+filter).hide('200');
+            $('.portfolio .image-container .box').filter('.'+filter).show('400');
+          }
+      
+        });
+      
+       
+       
+       
+       */
+        $('#theme-toggler').click(function(){
+          $(this).toggleClass('fa-sun');
+          $('body').toggleClass('dark-theme');
+        });
+      
+        // smooth scrolling 
+      
+        $('a[href*="#"]').on('click',function(e){
+      
+          e.preventDefault();
+      
+          $('html, body').animate({
+      
+            scrollTop : $($(this).attr('href')).offset().top,
+      
+          },
+            500,
+            'linear'
+          );
+      
+        });
+      
+      });
+</script>
+</body>
+<script>
+{% for port in ports %}
+$(".cat{{port.category.id}}").click(function(){
+  $(".imghide").hide()
+  $(".port{{port.category.id}}").show()
+});
+
+{% endfor %}
+</script>
+
+
+<script>
+    window.onload = function() {
+        document.getElementById('hidme').style.display = 'none';
+      };
+    window.redy
+    
+</script>
+
+<script>
+    const wrapper = document.querySelector(".wrapper");
+    const fileName = document.querySelector(".file-name");
+    const defaultBtn = document.querySelector("#default-btn");
+    const customBtn = document.querySelector("#custom-btn");
+    const cancelBtn = document.querySelector("#cancel-btn i");
+    const img = document.querySelector("img");
+    let regExp = /[0-9a-zA-Z\^\&\'\@\{\}\[\]\,\$\=\!\-\#\(\)\.\%\+\~\_ ]+$/;
+    function defaultBtnActive(){
+      defaultBtn.click();
+    }
+    defaultBtn.addEventListener("change", function(){
+      const file = this.files[0];
+      if(file){
+        const reader = new FileReader();
+        reader.onload = function(){
+          const result = reader.result;
+          img.src = result;
+          wrapper.classList.add("active");
+        }
+        cancelBtn.addEventListener("click", function(){
+          img.src = "";
+          wrapper.classList.remove("active");
+        })
+        reader.readAsDataURL(file);
+      }
+      if(this.value){
+        let valueStore = this.value.match(regExp);
+        fileName.textContent = valueStore;
+      }
+    });
+ </script>
+
+
+

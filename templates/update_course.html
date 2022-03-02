@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="heading">
+    <h3>our blogs</h3>
+    <p> <a href="{% url 'blog' %}">blogs >></a> update blog </p>
+</section>
+
+<section class="blog">
+
+<div class="container mt-5">
+
+    <a href="" class="btn btn-warning">View Your blogs</a>
+
+    <form method="post" class="mt-5 pt-5 mb-5 pb-5" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-12">
+                <label style="font-size: 30px;">Title</label>
+                <input style="width: 100%;padding: 12px 20px;margin: 8px 0;box-sizing: border-box;;" type="text" class="form-control" placeholder="Enter title" name="title">
+            </div>
+
+            <div class="col-md-12">
+                <label style="font-size: 30px;">Content</label>
+                {{form.media}}
+                {{form.as_p}}
+            </div>
+
+            <div class="col-md-12">
+                <label style="font-size: 30px;">Image</label>
+                <input type="file" name="image" class="btn" style="width: 100%;padding: 12px 20px;margin: 8px 0;box-sizing: border-box;;" >
+            </div>
+
+            <br><br>
+
+
+
+        
+
+        <button type="submit" class="btn btn-primary mt-4" style="font-size:20px">Create Blog</button>
+
+    </form>
+
+</div>
+
+</section>
+{% endblock %}

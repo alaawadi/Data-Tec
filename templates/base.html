@@ -1,0 +1,164 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>home</title>
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+<!--
+
+    <link rel="stylesheet" href="{% static 'css/default.css' %}">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'css/nouislider.css' %}">
+    <link rel="stylesheet" href="{% static 'css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'css/swiper.min.css' %}">
+-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+ 
+    
+</head>
+<body>
+    
+<!-- header section starts  -->
+
+<header class="header">
+
+    <a href="{% url 'home' %}" class="logo"!important> <i class="fas fa-graduation-cap"></i> Data Tec </a>
+
+    <div id="menu-btn" class="fas fa-bars"></div>
+
+    <nav class="navbar">
+        <ul>
+            <li><a href="{% url 'home' %}">home</a></li>
+            <li><a href="{% url 'services' %}">services</a></li>
+            <li><a href="{% url 'courses' %}">courses</a></li>
+            <li><a href="{% url 'blog' %}">blogs</a></li>
+            <li><a href="{% url 'projects' %}">projects</a></li>
+            <li><a href="{% url 'teachers' %}">team</a></li>
+            <li><a href="{% url 'contact' %}">contact</a></li>
+            
+
+        </ul>
+    </nav>
+    {% if request.user.is_authenticated %}
+    {% if home.image %}
+    <a href="{% url 'myprofile' %}"><img src="{{home.image.url}}" style='vertical-align: middle;width: 50px;height: 50px;border-radius: 50%;' alt="Avatar" class="avatar"></a>
+    {% else %} 
+    <a href="{% url 'myprofile' %}"><img src="{% static 'images/teacher-5.png' %}" style='vertical-align: middle;width: 50px;height: 50px;border-radius: 50%;' alt="Avatar" class="avatar"></a>
+{% endif %}
+          
+{% endif %}
+
+    
+</header>
+
+<!-- header section ends -->
+
+{% block content %}{% endblock  %}
+
+
+
+<!-- footer section starts  -->
+
+<section class="footer">
+
+    <div class="box-c">
+    <div class="credit"> created by <a href="">alaa wadi</a> | all rights reserved! </div>
+
+</section>
+
+<!-- footer section ends -->
+
+
+
+ <!-- custom js file link  -->
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"> </script> 
+
+ 
+ <script>
+/*
+	$(this).addClass("done");
+		$("span").text("Deleted");
+	} else {
+		$(this).addClass("confirm");
+		$("span").text("Are you sure?");
+	}
+});
+
+// Reset
+$("button").on('mouseout', function(){
+	if($(this).hasClass("confirm") || $(this).hasClass("done")){
+		setTimeout(function(){
+			$("button").removeClass("confirm").removeClass("done");
+			$("span").text("Delete");
+		}, 3000);
+	}
+});
+
+*/
+
+ </script>
+ 
+ 
+ 
+ <script>
+ 
+ {% for course in courses %}
+ 
+ $(".cat{{course.category.id}}").click(function(){
+   $(".coursehide").hide()
+   $(".course{{course.category.id}}").show()
+ });
+ 
+ {% endfor %}
+ 
+ </script>
+
+
+ <script>
+ 
+    {% for x in blogs %}
+    
+    $(".cat{{x.blog_Category.id}}").click(function(){
+      $(".bloghide").hide()
+      $(".x{{x.blog_Category.id}}").show()
+    });
+    
+    {% endfor %}
+    
+    </script>
+   
+
+
+    <script>
+
+        {% for x in projects %}
+        
+        $(".cat{{x.project_Category.id}}").click(function(){
+          $(".projecthide").hide()
+          $(".x{{x.project_Category.id}}").show()
+        });
+        
+        {% endfor %}
+        
+        </script>
+
+ 
+ <script src="{% static 'js/script.js' %}"></script>
+
+
+
+
