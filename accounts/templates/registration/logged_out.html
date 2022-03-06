@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="heading">
+  <h3>LOG OUT</h3>
+  <p> <a href="{% url 'home' %}">home >></a> logout </p>
+  
+</section>
+<section>
+  
+  <br><br>
+  <p style="font-size:25px;align:center;">Logged out!</p>  
+  <a style="font-size:25px;align:center;" href="{% url 'login'%}">Click here to login again.</a>
+</section>
+<br><br><br><br><br><br><br><br><br><br><br><br>  
+
+
+{% endblock %}

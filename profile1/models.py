@@ -8,6 +8,7 @@ from django.utils.text import slugify
 
 from django.contrib.auth.models import AbstractBaseUser
 
+from django.conf import settings
 
 
 # class CustomUser(AbstractBaseUser):
@@ -15,7 +16,7 @@ from django.contrib.auth.models import AbstractBaseUser
 
 
 class Home(models.Model):
-    user = models.OneToOneField(User,on_delete=models.CASCADE,null=True, blank=True)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,null=True, blank=True)
     image=models.ImageField(upload_to='photos/%y/%m/%d',null=True, blank=True)
     name=models.CharField(max_length=50,null=True, blank=True)
     desciption=models.TextField(max_length=1000,null=True, blank=True)
@@ -32,7 +33,7 @@ class Home(models.Model):
     
     
 class Coding_Skills(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,null=True)
     skl=models.CharField(max_length= 50)
     mea=models.IntegerField()
     slug = models.SlugField(max_length=1000 , null=True , blank=True)
@@ -49,7 +50,7 @@ class Coding_Skills(models.Model):
     
     
 class Professional_Skills(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,null=True)
     skl=models.CharField(max_length= 50)
     mea=models.IntegerField()
     slug = models.SlugField(max_length=1000 , null=True , blank=True)
@@ -66,7 +67,7 @@ class Professional_Skills(models.Model):
     
     
 class Experience(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,null=True)
     title=models.CharField(max_length=50)
     discription=models.TextField(max_length=200)
     slug = models.SlugField(max_length=1000 , null=True , blank=True)
@@ -84,7 +85,7 @@ class Experience(models.Model):
 
     
 class Education(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,null=True)
     title=models.CharField(max_length=50)
     discription=models.TextField(max_length=200)
     slug = models.SlugField(max_length=1000 , null=True , blank=True)
@@ -100,7 +101,7 @@ class Education(models.Model):
         return self.title
 
 class file(models.Model):
-    user = models.OneToOneField(User,on_delete=models.CASCADE,null=True, blank=True)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,null=True, blank=True)
     file=models.FileField(upload_to='media',null=True, blank=True)
     slug = models.SlugField(max_length=1000 , null=True , blank=True)
 
@@ -114,7 +115,7 @@ class file(models.Model):
     
     
 class SERVICES(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,null=True)
     img= models.ImageField(upload_to='service/%y/%m/%d')
     title=models.TextField(max_length=50)
     discription= models.CharField(max_length=200)
@@ -133,7 +134,7 @@ class SERVICES(models.Model):
     
     
 class Category(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,null=True)
     name = models.CharField(max_length=50)
     slug = models.SlugField(max_length=1000 , null=True , blank=True)
 
@@ -189,7 +190,7 @@ class Category(models.Model):
     
     
 class CONTACT_ME(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,null=True)
     phone=models.IntegerField()
     email=models.EmailField(max_length=200)
     address=models.CharField(max_length=100)
@@ -206,7 +207,7 @@ class CONTACT_ME(models.Model):
     
 
 class Message(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,null=True)
     name=models.CharField(max_length=100)
     email=models.EmailField(max_length=200)
     subject=models.CharField(max_length=300)
@@ -225,7 +226,7 @@ class Message(models.Model):
     
     
 class Location(models.Model):
-    user = models.OneToOneField(User,on_delete=models.CASCADE,null=True)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,null=True)
     url=models.TextField(max_length=1000)
     slug = models.SlugField(max_length=1000 , null=True , blank=True)
 

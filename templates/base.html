@@ -13,23 +13,68 @@
 
     <!-- custom css file link  -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-<!--
+    <!--
 
     <link rel="stylesheet" href="{% static 'css/default.css' %}">
     <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
     <link rel="stylesheet" href="{% static 'css/nouislider.css' %}">
     <link rel="stylesheet" href="{% static 'css/all.css' %}">
     <link rel="stylesheet" href="{% static 'css/swiper.min.css' %}">
--->
+    -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
  
-    
-</head>
-<body>
+    <style>
+      .dropbtn {
+        background-color: #3498DB;
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+      }
+      
+      /* Dropdown button on hover & focus */
+      .dropbtn:hover, .dropbtn:focus {
+        background-color: #2980B9;
+      }
+      
+      /* The container <div> - needed to position the dropdown content */
+      .dropdown {
+        position: relative;
+        display: inline-block;
+      }
+      
+      /* Dropdown Content (Hidden by Default) */
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+      }
+      
+      /* Links inside the dropdown */
+      .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+      }
+      
+      /* Change color of dropdown links on hover */
+      .dropdown-content a:hover {background-color: #ddd}
+      
+      /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+      .show {display:block;}
+    </style>
+    {% block style %} {% endblock %}
+  </head>
+<body style='background:rgb(241, 238, 232)'>
     
 <!-- header section starts  -->
 
@@ -49,19 +94,41 @@
             <li><a href="{% url 'teachers' %}">team</a></li>
             <li><a href="{% url 'contact' %}">contact</a></li>
             
+              
+          
 
         </ul>
     </nav>
-    {% if request.user.is_authenticated %}
-    {% if home.image %}
-    <a href="{% url 'myprofile' %}"><img src="{{home.image.url}}" style='vertical-align: middle;width: 50px;height: 50px;border-radius: 50%;' alt="Avatar" class="avatar"></a>
-    {% else %} 
-    <a href="{% url 'myprofile' %}"><img src="{% static 'images/teacher-5.png' %}" style='vertical-align: middle;width: 50px;height: 50px;border-radius: 50%;' alt="Avatar" class="avatar"></a>
-{% endif %}
-          
-{% endif %}
+    {% if request.user.is_tech == True %}
+    <div class="dropdown">
+      {% if home.image %}
+      <img onclick="myFunction()" class="dropbtn" src="{{home.image.url}}" style='vertical-align: middle;width: 70px;height: 70px;border-radius: 50%;' alt="Avatar" class="avatar">
+      {% else %}
+      <img onclick="myFunction()" class="dropbtn" src="{% static 'images/teacher-6.png' %}" style='vertical-align: middle;width: 70px;height: 70px;border-radius: 50%;' alt="Avatar" class="avatar">
+      {% endif %}
+      <div id="myDropdown" class="dropdown-content">
+        <a href="{% url 'myprofile' %}">Profile</a>
+        <a href="{%  url 'password_change' %}">change password</a>
+        <a href="{%  url 'password_reset' %}">forgitten password</a>
+        <a href="{% url 'logout' %}">logout</a>
+        
+      </div>
+    </div>
+    {% endif  %}
 
-    
+    {% if request.user.is_student == True %}
+    <div class="dropdown">
+      <img onclick="myFunction()" class="dropbtn" src="{% static 'images/teacher-6.png' %}" style='vertical-align: middle;width: 70px;height: 70px;border-radius: 50%;' alt="Avatar" class="avatar">
+
+      <div id="myDropdown" class="dropdown-content">
+        
+        <a href="{%  url 'password_change' %}">change password</a>
+        <a href="{% url 'logout' %}">logout</a>
+        
+      </div>
+    </div>
+    {% endif  %}
+
 </header>
 
 <!-- header section ends -->
@@ -87,8 +154,34 @@
 
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"> </script> 
 
- 
- <script>
+
+
+<script>
+
+
+/* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown menu if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+
+
+
+
 /*
 	$(this).addClass("done");
 		$("span").text("Deleted");
@@ -160,5 +253,7 @@ $("button").on('mouseout', function(){
  <script src="{% static 'js/script.js' %}"></script>
 
 
+
+ {% block script %}  {% endblock %}
 
 

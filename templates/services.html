@@ -7,7 +7,7 @@
 <section class="heading">
     <h3>our Services</h3>
     <p> <a href="{% url 'home' %}">home >></a> services </p>
-    {% if user.is_authenticated %}
+    {% if request.user.is_tech == True %}
     <a href="{% url 'add_serv' %}" class="btn">add service</a>
     {% endif %}
 </section>
@@ -33,7 +33,7 @@
         <a href="{% url 'serv_detail' serv.slug %}" class="btn">read more</a>
         <br>
         <br>
-        {% if serv.user == request.user %}
+        {% if serv.user == request.user and request.user.is_tech == True %}
             <a href="{% url 'serv_delete' serv.id %}" class="btn1">Delete</a>
             <a href="{% url 'serv_update' serv.id %}" class="btn2">update</a>
             {% endif %}

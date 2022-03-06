@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400&display=swap" rel="stylesheet">
+    <style>
+        *, .all{
+            margin:0;
+            padding:0;
+        }
+        .all{
+            background-color: rgb(241, 238, 232);
+            font-family: 'Fira Sans', sans-serif;
+        }
+        
+        .main-menu{
+            background-color: #fff;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+            box-shadow: 0px 0px 20px #d4d4d4;
+        
+            width : 250px;
+            overflow-y: scroll;
+            height: 100vh;
+        
+            position: fixed;
+            top:0;
+            left:0;
+            
+            overflow-x: hidden;
+            overflow-y: hidden;
+            white-space: nowrap;
+            
+            transition: .3s ease;
+        }
+        
+        .main-menu:hover{
+           overflow:scroll;  
+        }
+        
+        .main-menu .menu-item{
+            padding: 10px;
+        }
+        .main-menu .menu-item:hover{
+            background-color: #d6d6d6;
+            cursor: pointer;
+        }
+        
+        .main-menu .menu-item .fa{
+            color: gray;
+            width:40px;
+            font-size: 25px;
+            padding: 10px;
+        }
+        
+        .main-menu .menu-item:hover > .fa{
+            color: #1d0daa;
+        }
+        
+        section.home{
+            background-color: #f3f3f3;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 15px;
+            color:#fff;
+          }
+        
+          ::-webkit-scrollbar-track {
+            background: transparent !important;
+          }
+          
+          ::-webkit-scrollbar-thumb {
+            background: #bbbbbb;
+            border-radius: 10px;
+          }
+    </style>
+    {% endblock style %}
+
+
+    {% block content %}
+    <div class="all">
+    <div class="main-menu">
+        <ul>
+            <section class="home">
+                {% for x in disc|slice:"1" %}
+                <li class="menu-item"><i class="fa fa-paper-plane"></i><a href="{% url 'courses' %}">Courses</a> >> {{x.course}}</li>
+                {% endfor %}
+                {% for x in disc %}
+                <a style='font-size:15px;color:blue;' href="{% url 'vid3' x.slug %}"><i class="fa fa-play-circle-o menu-item" style='margin-left:-10px'></i>{{x.title}}</a>
+                {% endfor %}
+                
+                
+            </section>
+
+
+        </ul>
+    </div>
+    <div style="margin:20px;padding-left:100px;padding-right:100px;">
+        
+    {% if request.user.is_tech == True %}
+    <a class="btn2" href="{% url 'add_lesson' %}" style="margin-left:600px">Add lesson</a>
+<br><br><br><br>
+    {% endif %}
+   <div style='    max-width: 1200px;
+   margin-left: 250px ;
+   display: flex;
+   flex-wrap: wrap;
+   align-items: flex-start;
+   gap: 20px;
+'> 
+<div style='flex: 1 1 700px;
+border-radius: 5px;
+box-shadow: 0 5px 15px rgba(0, 0, 0, .1);
+background-color: #fff;
+padding: 15px;'>
+<p>{{dic.content|safe}}</p>
+    </div></div>
+    </div>
+    
+</div>
+{% endblock content %}

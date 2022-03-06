@@ -825,7 +825,7 @@
 <section class="home" id="home">
 
     <div class="image">
-        {% if homs.image %}
+        {% if request.user.is_tech == True and homs.image %}
         <img src="{{homs.image.url}}" alt="">
         {% else %}
         <img src="{% static 'images/teacher-5.png' %}" alt="">
@@ -853,9 +853,9 @@
         <br>
         <br>
         
-        {% if homs.name and homs.user == request.user %}
+        {% if homs.name and homs.user == request.user and request.user.is_tech == True %}
         <a href="{% url 'home_update' homs.id %}" class="btn2">Update home</a>
-        {% elif not homs.name and request.user.is_authenticated %}
+        {% elif not homs.name and request.user.is_tech == True %}
         <a href="{% url 'add_home' %}" class="btn2">add home</a>
         {% endif %}
     </div>
@@ -868,7 +868,7 @@
 <section class="about" id="about">
 
     <h1 class="heading"> about <span>me</span> </h1>
-    {% if homs.user == request.user %}    
+    {% if homs.user == request.user and request.user.is_tech == True %}    
     <a href="{% url 'add_cod_skl' %}" class="btn2">add codeing skills</a>
     <a href="{% url 'add_prof_skl' %}" class="btn2">add professional skills</a>
     <a href="{% url 'add_exp' %}" class="btn2">add experience</a>
@@ -884,6 +884,10 @@
             <div class="progress">
                 <h3> {{x.skl}} <span>{{x.mea}}%</span> </h3>
                 <div class="bar"><span style="width:{{x.mea}}%"></span></div>
+                {% if x.user == request.user and request.user.is_tech == True %}
+                <a href="{% url 'pro_skl_delete' x.id %}" class="btn1">Delete</a>
+            <a href="{% url 'pro_skl_update' x.id %}" class="btn2">Update</a>
+            {% endif %}
             </div>
 
             {% endfor %}
@@ -895,6 +899,10 @@
             <div class="progress">
                 <h3> {{per.skl}} <span>{{per.mea}}%</span> </h3>
                 <div class="bar"><span style="width:{{per.mea}}%"></span></div>
+                {% if per.user == request.user and request.user.is_tech == True %}
+                <a href="{% url 'pro_prof_skl_delete' per.id %}" class="btn1">Delete</a>
+            <a href="{% url 'pro_prof_skl_update' per.id %}" class="btn2">Update</a>
+            {% endif %}
             </div>
 {% endfor %}
            
@@ -906,6 +914,10 @@
             <div class="exp-box">
                 <h3>{{exp.title}}</h3>
                 <p>{{exp.discription}}</p>
+                {% if exp.user == request.user and request.user.is_tech == True %}
+                <a href="{% url 'pro_exp_delete' exp.id %}" class="btn1">Delete</a>
+            <a href="{% url 'pro_exp_update' exp.id %}" class="btn2">Update</a>
+            {% endif %}
             </div>
             {% endfor %}
         </div>
@@ -919,6 +931,10 @@
             <div class="exp-box">
                 <h3>{{edu.title}}</h3>
                 <p>{{edu.discription}}</p>
+                {% if edu.user == request.user and request.user.is_tech == True %}
+                <a href="{% url 'pro_edu_delete' edu.id %}" class="btn1">Delete</a>
+            <a href="{% url 'pro_edu_update' edu.id %}" class="btn2">Update</a>
+            {% endif %}
             </div>
 {% endfor %}
          
@@ -933,7 +949,7 @@
         
         
         <a href="{{file.file.url}}" class="btn" download="{{file.file.url}}"> download CV </a>
-        {% if file.user == request.user%}
+        {% if file.user == request.user and request.user.is_tech == True %}
         <br><br>
         
         <a href="{% url 'file_update' file.id %}" class="btn2"> Update CV </a>
@@ -941,7 +957,7 @@
         {% endif %}
        {% if not file.file %}
        <a href="{% static 'images/teacher-4.png' %}" class="btn" download="{% static 'images/teacher-4.png' %}"> download CV </a>
-       {% if request.user == homs.user %}
+       {% if request.user == homs.user and request.user.is_tech == True %}
        <br><br>
         
        <a href="{% url 'add_file' %}" class="btn2"> Add CV </a>
@@ -957,7 +973,7 @@
 <section class="services" id="services">
 
     <h1 class="heading"> <span>my</span> services </h1>
-    {% if homs.user == request.user %}    
+    {% if homs.user == request.user and request.user.is_tech == True %}    
     <a href="{% url 'pro_add_serv' %}" class="btn2">add service</a>
 {% endif %}
     <div class="box-container">
@@ -974,7 +990,7 @@
             <p>{{serv.small_desc}}</p>
             <br>
             
-            {% if serv.user == request.user %}
+            {% if serv.user == request.user and request.user.is_tech == True %}
             <a href="{% url 'delete_from_myprofile' serv.id %}" class="btn1">Delete</a>
             <a href="{% url 'pro_serv_update' serv.id %}" class="btn2">Update</a>
             {% endif %}
@@ -1005,7 +1021,7 @@
         <div class="btn" data-filter="website">website</div>
         <div class="btn" data-filter="brand">brand</div>-->
     </div>
-    {% if homs.user == request.user %}
+    {% if homs.user == request.user and request.user.is_tech == True %}
     <a href="{% url 'pro_add_project' %}" class="btn2">add project</a>
     {% endif %}
     <div class="image-container">
@@ -1020,7 +1036,7 @@
             
             <div class="info">
                 <h3>{{port.title}}</h3>
-                <h3>{% if port.user == request.user %}
+                <h3>{% if port.user == request.user and request.user.is_tech == True %}
                     <a href="{% url 'delete_from_myprofile' port.id %}" class="btn1">Delete</a>
                     <a href="{% url 'pro_project_update' port.id %}" class="btn2">Update</a>
                     {% endif %}    </h3>
@@ -1043,7 +1059,7 @@
 <section class="blog" id="blog">
 
     <h1 class="heading"> <span>my</span> blogs </h1>
-    {% if homs.user == request.user %}
+    {% if homs.user == request.user and request.user.is_tech == True %}
     <a href="{% url 'pro_add_blog' %}" class="btn2">add blog</a>
     {% endif %}
     <div class="box-container">
@@ -1062,7 +1078,7 @@
                 <p>{{blog.small_desc}}</p>
                 <a href="{% url 'blog_detail1' blog.slug %}" class="btn">read more</a>
                 <br><br><br>
-                {% if blog.user == request.user %}
+                {% if blog.user == request.user and request.user.is_tech == True %}
                 <a href="{% url 'delete_from_myprofile' blog.id %}" class="btn1">Delete</a>
                 <a href="{% url 'pro_blog_update' blog.id %}" class="btn2">Update</a>
                 {% endif %}
@@ -1096,7 +1112,7 @@
 <section class="blog" id="blog">
 
     <h1 class="heading"> <span>my</span> courses </h1>
-    {% if homs.user == request.user %} 
+    {% if homs.user == request.user and request.user.is_tech == True %} 
     <a href="{% url 'pro_add_course' %}" class="btn2">add Course</a>
     {% endif %}
     <div class="box-container">
@@ -1113,9 +1129,9 @@
                 <h3 class="info"> <i class="fas fa-user"></i> by: {{x.owner}} <i class="fas fa-calendar"></i> {{x.date|date:'d M o'}} </h3>
                 <a href="#" class="title"> {{x.title}} </a>
                 <p>{{x.desciption}}</p>
-                <a href="{% url 'course' x.slug %}" class="btn">read more</a>
+                <a href="{% url 'vid2' x.slug %}" class="btn">read more</a>
                 <br><br><br>
-                {% if x.owner == request.user %}
+                {% if x.owner == request.user and request.user.is_tech == True %}
                 <a href="{% url 'delete_course_from_myprofile' x.id %}" class="btn1">Delete</a>
                 <a href="{% url 'pro_course_update' x.id %}" class="btn2">Update</a>
                 {% endif %}

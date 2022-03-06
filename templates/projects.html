@@ -6,7 +6,7 @@
     <h3>our Projects</h3>
 
     <p> <a href="{% url 'home' %}">home >></a> projects </p>
-    {% if user.is_authenticated %}
+    {% if request.user.is_tech == True %}
     <a href="{% url 'add_project' %}" class="btn">add project </a>
     {% endif %}
 </section>

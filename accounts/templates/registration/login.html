@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% block content %}
+
+<section class="heading">
+  <h3>LOG IN</h3>
+  <p> <a href="{% url 'home' %}">home >></a> Login </p>
+  
+</section>
+
+<section>
+  {% if form.errors %}
+    <p>Your username and password didn't match. Please try again.</p>
+  {% endif %}
+  
+  {% if next %}
+    {% if user.is_authenticated %}
+      <p>Your account doesn't have access to this page. To proceed,
+      please login with an account that has access.</p>
+    {% else %}
+      <p>Please login to see this page.</p>
+    {% endif %}
+  {% endif %}
+  
+  <form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <p><a href="{% url 'password_change' %}">Lost password?</a>
+      <a href="{% url 'signup'%}">Signup?</a>
+    </p>
+    <input type="submit" value="login" class="btn"/>
+    <input type="hidden" name="next" value="/" />
+  </form>
+  
+  {# Assumes you setup the password_reset view in your URLconf #}
+  
+</section>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+{% endblock %}

@@ -7,191 +7,284 @@
 
 
 
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-    
-    body::-webkit-scrollbar {
-        width: 10px;
-    }
-    
-    body::-webkit-scrollbar-thumb {
-        height: 80px;
-        background: #e1e2e2;
-        border: 8px solid transparent;
-        border-radius: 12px;
-    }
-    
-    body::-webkit-scrollbar-thumb:active {
-        background: #003349;
-    }
-    
-    body {
-        font-family: sans-serif;
-        background: #e1e2e2;
-    }
-    
-    li {
-        list-style: none;
-    }
-    
-    section {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        padding: 2.5%;
-        min-height: 100vh;
-    }
-    
-    .title {
-        font-size: 20px;
-        font-weight: 600;
-        color: #000000;
-        text-align: left;
-        width: 100%;
-        margin-bottom: 10px;
-    }
-    
-    .container {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        display: grid;
-        grid-template-columns: 2fr 1fr;
-        overflow: hidden;
-        /* border: 2px solid red; */
-    }
-    
-    .container #main-Video {
-        position: relative;
-        width: 100%;
-        height: auto;
-        overflow: hidden;
-        outline: none;
-    }
-    
-    .playlistBx {
-        position: relative;
-        height: 100%;
-        margin: 0 10px 0 10px;
-        /* border: 2px solid green; */
-    }
-    
-    .playlist {
-        position: absolute;
-        width: 100%;
-        height: calc(100% - 40px);
-        overflow-y: scroll;
-        border-top: 1px solid #083f86;
-        background: #a8cedf;
-    }
-    
-    .playlist::-webkit-scrollbar {
-        width: 10px;
-    }
-    
-    .playlistBx .row .AllLessons {
-        display: block;
-        text-align: left;
-        color: #356dc0;
-        font-size: 15px;
-        font-weight: 700;
-        margin-left: 40px;
-        line-height: 40px;
-    }
-    
-    .playlist li {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        list-style: none;
-        color: #356dc0;
-        cursor: pointer;
-        border: 1px solid transparent;
-        padding: 15px 20px;
-        border-radius: 5px;
-    }
-    
-    .playlist li:hover {
-        border: 0.5px solid #375666;
-    }
-    
-    .playlist li .row span {
-        font-size: 15px;
-        font-weight: 400;
-        color: #000000;
-        text-decoration: none;
-        display: inline-block;
-        text-align: left;
-    }
-    
-    .playlist li .row span::before {
-        content: '\f01d';
-        font-family: FontAwesome;
-        color: #000000;
-        margin-right: 15px;
-        font-size: 20px;
-    }
-    
-    ul li.playing .row span::before {
-        content: '\f28c';
-        font-family: FontAwesome;
-        color: #fff;
-        margin-right: 15px;
-        font-size: 20px;
-    }
-    
-    .playlist li.playing .row span {
-        color: #fff;
-    }
-    
-    .playlist li span.duration {
-        font-size: 15px;
-        font-weight: 400;
-        display: inline-block;
-        color: #dcdee1;
-        text-align: right;
-    }
-    
-    .playlist li.playing {
-        pointer-events: none;
-        background: #1d3541;
-        border: 0.5px solid #1d3541;
-    }
-    
-    @media(max-width: 1092px) {
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        body::-webkit-scrollbar-thumb {
+            height: 80px;
+            background: #e1e2e2;
+            border: 8px solid transparent;
+            border-radius: 12px;
+        }
+        
+        body::-webkit-scrollbar-thumb:active {
+            background: #003349;
+        }
+        
+        body {
+            font-family: sans-serif;
+            background: #e1e2e2;
+        }
+        
+        li {
+            list-style: none;
+        }
+        
         section {
-            padding: 30px 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 2.5%;
+            min-height: 100vh;
         }
-        .container {
+        
+        .title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #000000;
+            text-align: left;
             width: 100%;
-            display: grid;
-            grid-template-columns: repeat(1, 1fr);
-            overflow: hidden;
+            margin-bottom: 10px;
         }
-        .container #main-Video {
+        
+        .container {
+            position: relative;
+            width: 100%;
             height: 100%;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            overflow: hidden;
+            /* border: 2px solid red; */
         }
+        
+        .container #main-Video {
+            position: relative;
+            width: 100%;
+            height: auto;
+            overflow: hidden;
+            outline: none;
+        }
+        
         .playlistBx {
-            height: 380px;
-            margin-top: 10px;
+            position: relative;
+            height: 100%;
+            margin: 0 10px 0 10px;
+            /* border: 2px solid green; */
         }
+        
         .playlist {
             position: absolute;
             width: 100%;
             height: calc(100% - 40px);
             overflow-y: scroll;
+            border-top: 1px solid #083f86;
+            background: #a8cedf;
         }
-    }
-</style>
-    <title>Html And CSS Video Playlist</title>
-</head>
-<body>
+        
+        .playlist::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        .playlistBx .row .AllLessons {
+            display: block;
+            text-align: left;
+            color: #356dc0;
+            font-size: 15px;
+            font-weight: 700;
+            margin-left: 40px;
+            line-height: 40px;
+        }
+        
+        .playlist li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            list-style: none;
+            color: #356dc0;
+            cursor: pointer;
+            border: 1px solid transparent;
+            padding: 15px 20px;
+            border-radius: 5px;
+        }
+        
+        .playlist li:hover {
+            border: 0.5px solid #375666;
+        }
+        
+        .playlist li .row span {
+            font-size: 15px;
+            font-weight: 400;
+            color: #000000;
+            text-decoration: none;
+            display: inline-block;
+            text-align: left;
+        }
+        
+        .playlist li .row span::before {
+            content: '\f01d';
+            font-family: FontAwesome;
+            color: #000000;
+            margin-right: 15px;
+            font-size: 20px;
+        }
+        
+        ul li.playing .row span::before {
+            content: '\f28c';
+            font-family: FontAwesome;
+            color: #fff;
+            margin-right: 15px;
+            font-size: 20px;
+        }
+        
+        .playlist li.playing .row span {
+            color: #fff;
+        }
+        
+        .playlist li span.duration {
+            font-size: 15px;
+            font-weight: 400;
+            display: inline-block;
+            color: #dcdee1;
+            text-align: right;
+        }
+        
+        .playlist li.playing {
+            pointer-events: none;
+            background: #1d3541;
+            border: 0.5px solid #1d3541;
+        }
+        
+        .btn1 {
+    background-color: #F08080;
+    /* Blue background */
+    border: none;
+    /* Remove borders */
+    color: white;
+    /* White text */
+    padding: 12px 16px;
+    /* Some padding */
+    font-size: 16px;
+    /* Set a font size */
+    cursor: pointer;
+    /* Mouse pointer on hover */
+}
 
+
+/* Darker background on mouse-over */
+
+.btn1:hover {
+    background-color: red;
+}
+
+.btn2 {
+    background-color: #90EE90;
+    /* Blue background */
+    border: none;
+    /* Remove borders */
+    color: white;
+    /* White text */
+    padding: 12px 16px;
+    /* Some padding */
+    font-size: 16px;
+    /* Set a font size */
+    cursor: pointer;
+    /* Mouse pointer on hover */
+}
+
+
+/* Darker background on mouse-over */
+
+.btn2:hover {
+    background-color: green;
+}
+
+
+.btn1 {
+    background-color: #F08080;
+    /* Blue background */
+    border: none;
+    /* Remove borders */
+    color: white;
+    /* White text */
+    padding: 12px 16px;
+    /* Some padding */
+    font-size: 16px;
+    /* Set a font size */
+    cursor: pointer;
+    /* Mouse pointer on hover */
+}
+
+
+/* Darker background on mouse-over */
+
+.btn1:hover {
+    background-color: red;
+}
+
+.btn2 {
+    background-color: #90EE90;
+    /* Blue background */
+    border: none;
+    /* Remove borders */
+    color: white;
+    /* White text */
+    padding: 12px 16px;
+    /* Some padding */
+    font-size: 16px;
+    /* Set a font size */
+    cursor: pointer;
+    /* Mouse pointer on hover */
+}
+
+
+/* Darker background on mouse-over */
+
+.btn2:hover {
+    background-color: green;
+}
+
+
+        @media(max-width: 1092px) {
+            section {
+                padding: 30px 10px;
+            }
+            .container {
+                width: 100%;
+                display: grid;
+                grid-template-columns: repeat(1, 1fr);
+                overflow: hidden;
+            }
+            .container #main-Video {
+                height: 100%;
+            }
+            .playlistBx {
+                height: 380px;
+                margin-top: 10px;
+            }
+            .playlist {
+                position: absolute;
+                width: 100%;
+                height: calc(100% - 40px);
+                overflow-y: scroll;
+            }
+        }
+    </style>
+        <title>Html And CSS Video Playlist</title>
+</head>
+
+<body style='background:rgb(241, 238, 232);'>
+
+    <!-- header section starts  -->
     <section>
         
         <div class="container">
@@ -200,7 +293,7 @@
             </div>
             <div class="playlistBx">
                 <div class="header">
-                    <div class="row">
+                    <div class="row" style='background:#1d3541'>
                         <span class="AllLessons"></span>
                     </div>
                 </div>
@@ -210,92 +303,47 @@
         </div>
         <br><br>
         <h2 class="title"></h2>
-        <p>ifdji gheifiohdiof hiodus h dsh darkidosh vihdsivp dv
-            ifdji gheifiohdiof hiodus h dsh darkidosh vihdsivp dv
-            ifdji gheifiohdiof hiodus h dsh darkidosh vihdsivp dv
-            ifdji gheifiohdiof hiodus h dsh darkidosh vihdsivp dv
-            ifdji gheifiohdiof hiodus h dsh darkidosh vihdsivp dv
-            ifdji gheifiohdiof hiodus h dsh darkidosh vihdsivp dv
-            ifdji gheifiohdiof hiodus h dsh darkidosh vihdsivp dv
-            ifdji gheifiohdiof hiodus h dsh darkidosh vihdsivp dv
-            ifdji gheifiohdiof hiodus h dsh darkidosh vihdsivp dv
-            ifdji gheifiohdiof hiodus h dsh darkidosh vihdsivp dv
-            ifdji gheifiohdiof hiodus h dsh darkidosh vihdsivp dv
-            ifdji gheifiohdiof hiodus h dsh darkidosh vihdsivp dv
-            ifdji gheifiohdiof hiodus h dsh darkidosh vihdsivp dv
-            ifdji gheifiohdiof hiodus h dsh darkidosh vihdsivp dv
-            ifdji gheifiohdiof hiodus h dsh darkidosh vihdsivp dv
-            ifdji gheifiohdiof hiodus h dsh darkidosh vihdsivp dv
+        {% for x in vid|slice:"1" %}
+        {% if request.user == x.user and request.user.is_tech == True %}
+        <a class="btn1 delete" href="">delete</a>
+        <a class="btn2 update" href="">update</a>
+        {% endif %}
+        {% endfor %}
+        <p class='content'>
+            
         </p>
+
+
     </section>
+
+
+    
+<div class="footer" style='background: rgb(241, 238, 232);'>
+
+    <div class="box-c">
+    <div class="credit" style='text-align: center;
+    margin-top: 3rem;
+    padding: 1rem;
+    padding-top: 2rem;
+    font-size: 21px;
+    color: #666;
+    border-top: 0.1rem solid rgba(0, 0, 0, 0.1);'> Created By <a style='color: #fa1d86;' href="">Alaa Wadi</a> | All Rights Reserved! </div>
+<br>
+    
+</div>
     <script>
 
             let allVideos = [
+            {% for x in vid %}
             {
-            name: "Computer Monitor Shape",
-            src: "Computer Monitor Shape - Using Html and CSS",
-            id: "vid_1"
+            name: "{{x.title}}",
+            src: "{{x.video.url}}",
+            id: "vid_{{forloop.counter}}",
+            disc : "{{x.content|safe}}",
+            del : "{% url 'lesson_delete' x.id %}",
+            upd : "{% url 'lesson_update' x.id %}"
             },
-            {
-            name: "Button Hover Effect",
-            src: "Button Hover Effect Using Html And CSS",
-            id: "vid_2"
-            },
-            {
-            name: "Confirm Password using Html CSS & js",
-            src: "Confirm Password using Html CSS & js",
-            id: "vid_3"
-            },
-            {
-            name: "Creative Card Hover Effect",
-            src: "Creative Card Hover Effect ",
-            id: "vid_4"
-            },
-            {
-            name: "Creative Digital Clock Ui Design",
-            src: "Creative Digital Clock Ui Design - Html Css & Vanilla Javascript-1",
-            id: "vid_5"
-            },
-            {
-            name: "Creative Our Team Section",
-            src: "Creative Our Team Section Using HTML & CSS Neumorphism",
-            id: "vid_6"
-            },
-            {
-            name: "Filter Text Animation Using Html and CSS",
-            src: "Filter Text Animation Using Htm and Pure CSS",
-            id: "vid_7"
-            },
-            {
-            name: "Glassmorphism Calculater New Design",
-            src: "Glassmorphism Calculater New Design Html",
-            id: "vid_8"
-            },
-            {
-            name: "How To  Make Cheatsheet",
-            src: "How To  Make Cheatsheet Using Html, CSS and Javascript",
-            id: "vid_9"
-            },
-            {
-            name: "How to create Login Form",
-            src: "How to create Login Form Using Html and CSS",
-            id: "vid_10"
-            },
-            {
-            name: "How To Make Animated Menu Icon",
-            src: "How To Make Animated Menu Icon Using Html",
-            id: "vid_11"
-            },
-            {
-            name: "How to make Read More Function",
-            src: "How to make Read More Function using Html",
-            id: "vid_12"
-            },
-            {
-            name: "Vertical Navigation Bar",
-            src: "Vertical Navigation Bar Using Html And CSS",
-            id: "vid_13"
-            }
+           {% endfor %}
         ]
 
     </script>
@@ -307,10 +355,12 @@
             const playlist = document.getElementById('playlist');
             const AllLessons = document.querySelector('.AllLessons');
             const videoTitle = document.querySelector('.title');
-
+            const videoContent = document.querySelector('.content');
+            const Delete = document.querySelector('.delete');
+            const Update = document.querySelector('.update');
 
             const ulTag = document.querySelector("ul");
-            AllLessons.innerHTML = `${allVideos.length} Lessons`
+            AllLessons.innerHTML = `{{cors.title}} | ${allVideos.length} Lessons`
 
 
             let musicIndex = 1;
@@ -323,8 +373,17 @@
             playlist.classList.add('active')
             }
             function loadMusic(indexNumb){
-            mainVideo.src = `media/${allVideos[indexNumb - 1].src}.mp4`;
+            mainVideo.src = `${allVideos[indexNumb - 1].src}`;
             videoTitle.innerHTML = `${indexNumb}. ${allVideos[indexNumb - 1].name}`
+            videoContent.innerHTML = `${allVideos[indexNumb - 1].disc}`
+            
+            
+            {% if request.user == x.user %}
+            {% for x in vid|slice:"1" %}
+            Delete.href = `${allVideos[indexNumb - 1].del}`;
+            Update.href = `${allVideos[indexNumb - 1].upd}`;
+            {% endfor %}
+            {% endif %}
             
             }
 
@@ -333,7 +392,7 @@
                 <div class="row">
                     <span>${i + 1}. ${allVideos[i].name}</span>
                 </div>
-                <video class="${allVideos[i].id}" src="media/${allVideos[i].src}.mp4" style="display: none;" title="${allVideos[i].name}"></video>
+                <video class="${allVideos[i].id}" src="${allVideos[i].src}" style="display: none;" title="${allVideos[i].name}"></video>
                 <span id="${allVideos[i].id}" class="duration"></span>
             </li>`;
             playlist.insertAdjacentHTML('beforeend',liTag); 

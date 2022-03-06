@@ -1,3 +1,4 @@
+import imp
 from django.urls import path
 from . import views
 
@@ -27,7 +28,7 @@ urlpatterns = [
     path('add-project/' , views.add_project, name="add_project"),
     path('add-serv/' , views.add_serv, name="add_serv"),
     path('add-course/' , views.add_course, name="add_course"),
-    path('add-lesson/' , views.add_lesson, name="add_lesson"),
+    path('add_lesson/' , views.add_lesson, name="add_lesson"),
     
     
     
@@ -49,6 +50,7 @@ urlpatterns = [
     # path('blog_update/<id>' , views.blog_update , name="blog_update"),
     # path('serv_update/<id>' , views.serv_update , name="serv_update"),
     path('blog_update/<id>' , views.blog_update , name="blog_update"),
+    path('lesson_update/<id>' , views.lesson_update , name="lesson_update"),
     path('course_update/<id>' , views.course_update , name="course_update"),
     path('serv_update/<id>' , views.serv_update , name="serv_update"),
     path('project_update/<id>' , views.project_update , name="project_update"),
@@ -57,6 +59,17 @@ urlpatterns = [
     path('pro_course_update/<id>' , views.pro_course_update , name="pro_course_update"),
     path('pro_serv_update/<id>' , views.pro_serv_update , name="pro_serv_update"),
     path('pro_project_update/<id>' , views.pro_project_update , name="pro_project_update"),
-    
-    
+    path('vid/' , views.vid , name="vid"),
+    path('pro_edu_update/<id>' , views.pro_edu_update , name="pro_edu_update"),
+    path('pro_exp_update/<id>' , views.pro_exp_update , name="pro_exp_update"),
+    path('pro_prof_skil_update/<id>' , views.pro_prof_skl_update , name="pro_prof_skl_update"),
+    path('pro_skl_update/<id>' , views.pro_skl_update , name="pro_skl_update"),
+    path('pro_edu_delete/<id>' , views.pro_edu_delete , name="pro_edu_delete"),
+    path('pro_exp_delete/<id>' , views.pro_exp_delete , name="pro_exp_delete"),
+    path('pro_prof_skil_delete/<id>' , views.pro_prof_skl_delete , name="pro_prof_skl_delete"),
+    path('pro_skl_delete/<id>' , views.pro_skl_delete , name="pro_skl_delete"),
+    # path('vid2/<slug>' , views.vid2 , name="vid2"),
+    path("vid2/<slug>" , views.vid2 , name="vid2"),
+    path("vid3/<slug>" , views.vid3 , name="vid3"),
+    # path('service/', views.autocomplete, name='autocomplete'),
 ]

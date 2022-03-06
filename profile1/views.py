@@ -92,10 +92,14 @@ def massage(request,slug):
     # locs = Location.objects.filter(user=user)
     # files = file.objects.filter(user=user)
     
-    
-    if request.method == 'POST':
+    if request.method == 'POST' and request.user.is_authenticated:
         subject = request.POST['subject']
-        email = request.POST['email']
+        if request.user.email:
+            email = request.user.email
+        elif request.user.username:
+            email = request.user.username
+        else:
+            return redirect('/contact/')
         message = request.POST['message']
 
         send_mail(
@@ -203,16 +207,23 @@ def myprofile(request):
     # locs = Location.objects.filter(user=user)
     # files = file.objects.filter(user=user)
     
-    
-    if request.method == 'POST':
+    if request.method == 'POST' and request.user.is_authenticated:
         subject = request.POST['subject']
-        email = request.POST['email']
+        if request.user.email:
+            email = request.user.email
+        elif request.user.username:
+            email = request.user.username
+        else:
+            return redirect('/contact/')
         message = request.POST['message']
 
+    
         send_mail(
-            subject,
-            message,
             email,
+            message,
+            subject,
+            
+            
             
             
             [settings.EMAIL_HOST_USER],
@@ -265,7 +276,7 @@ def add_cod_skl(request):
     context = {'form' : Coding_SkillsForm}
     
     try:
-        if request.method == 'POST':
+        if request.method == 'POST' and request.user.is_tech == True:
             form = Coding_SkillsForm(request.POST)
             user = request.user
                     
@@ -302,7 +313,7 @@ def add_prof_skl(request):
     context = {'form' : Professional_SkillsForm}
     
     try:
-        if request.method == 'POST':
+        if request.method == 'POST' and request.user.is_tech == True:
             form = Professional_SkillsForm(request.POST)
             user = request.user
                     
@@ -338,7 +349,7 @@ def add_home(request):
     context = {'form' : HomeForm}
     
     try:
-        if request.method == 'POST':
+        if request.method == 'POST' and request.user.is_tech == True:
             form = HomeForm(request.POST,request.FILES)
             user = request.user
                     
@@ -370,7 +381,7 @@ def add_home(request):
 
 def home_update(request,id):
     blog_id = Home.objects.get(id=id)
-    if request.method == 'POST':
+    if request.method == 'POST' and request.user.is_tech == True:
         blog_save = HomeForm(request.POST , request.FILES , instance= blog_id)
         if blog_save.is_valid():
             blog_save.save()
@@ -403,7 +414,7 @@ def add_file(request):
     context = {'form' : fileForm}
     
     try:
-        if request.method == 'POST':
+        if request.method == 'POST' and request.user.is_tech == True:
             form = fileForm(request.POST,request.FILES)
             user = request.user
                     
@@ -431,7 +442,7 @@ def add_file(request):
 
 def file_update(request,id):
     blog_id = file.objects.get(id=id)
-    if request.method == 'POST':
+    if request.method == 'POST' and request.user.is_tech == True:
         blog_save = fileForm(request.POST , request.FILES , instance= blog_id)
         if blog_save.is_valid():
             blog_save.save()
@@ -464,7 +475,7 @@ def add_exp(request):
     context = {'form' : ExperienceForm}
     
     try:
-        if request.method == 'POST':
+        if request.method == 'POST' and request.user.is_tech == True:
             form = ExperienceForm(request.POST)
             user = request.user
                     
@@ -501,7 +512,7 @@ def add_edu(request):
     context = {'form' : EducationForm}
     
     try:
-        if request.method == 'POST':
+        if request.method == 'POST' and request.user.is_tech == True:
             form = EducationForm(request.POST)
             user = request.user
                     

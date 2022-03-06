@@ -17,6 +17,7 @@ html {
     font-size: 62.5%;
     overflow-x: hidden;
     background-color: rgb(241, 238, 232);
+    ;
 }
 
 section {
@@ -308,7 +309,7 @@ section {
 .course-2 .box .content span {
     font-size: 1.4rem;
     color: #fa1d86;
-    background: #ffeaf4;
+    background: #fff;
     padding: .5rem 1rem;
 }
 

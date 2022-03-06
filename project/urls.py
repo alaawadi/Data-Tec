@@ -26,9 +26,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('pages2.urls')),
     path('',include('profile1.urls')),    
-    
-
-
+    # path('',include('authentication.urls')),
+    # path('',include('django.contrib.auth.urls')),
+    path('accounts/',include('django.contrib.auth.urls')),
+    path('accounts/',include('accounts.urls')),
     path('froala_editor/',include('froala_editor.urls')),
 
 ]

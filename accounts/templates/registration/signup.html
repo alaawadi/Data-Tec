@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% block content %}
+
+<section class="heading">
+  <h3>SIGN UP</h3>
+  <p> <a href="{% url 'home' %}">home >></a> signup </p>
+  
+</section>
+
+<section>  
+  <form method="post">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <a href="{% url 'login'%}">Login?</a>
+    <br>
+    <input type="submit" value="Signup" class="btn"/>
+  </form>
+  
+  
+  {# Assumes you setup the password_reset view in your URLconf #}
+</section>
+{% endblock %}
+
+{% block script %} 
+
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+<script>
+ $("#id_username").change(function(){
+    var username =$(this).val() ;
+    var form = $(this).closest("form");
+    $.ajax({
+        url:form.attr("data-validate-username-url"),
+        data:form.serialize(),
+        dataType:'json',
+        success: function(data){
+            if (data.is_taken){
+
+                $("#user_error").text(data.error_message);
+                $("#user_error").css("display","block");
+            }
+            else{
+             $("#user_error").css("display","none");
+            }
+            
+        }
+
+    });
+ });
+</script>
+{% endblock %}

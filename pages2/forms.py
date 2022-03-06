@@ -122,37 +122,34 @@ class courseForm(forms.ModelForm):
 
 class videoForm(forms.ModelForm):
     class Meta:
-        model = BlogModel
-        fields = ['title','image','course','content','small_desc','is_blog','blog_Category','is_project','project_Category']
+        model = Video
+        fields = ['video','title','content','course']
         widgets = {
         
             'title': forms.TextInput(
                 attrs={
                     'class': 'form-control'
                 }),
-           
-            'small_desc': forms.Textarea(
-                attrs={
-                    'class': 'form-control'
-                }),
-            'project_Category': forms.Select(
-                attrs={
-                    'class': 'form-control'
-                }),
-            'blog_Category': forms.Select(
-                attrs={
-                    'class': 'form-control'
-                }),
-            'is_project': forms.CheckboxInput(
-                attrs={
-                    'class': 'form-control'
-                }),
-            'is_blog': forms.CheckboxInput(
-                attrs={
-                    'class': 'form-control'
-                }),
-        
-        }
-    
+
+        }        
         
         
+
+class lessonForm(forms.ModelForm):
+    class Meta:
+        model = BlogModel
+        fields = ['title','image','content','course','is_project','project_Category','is_blog','blog_Category']
+        widgets = {
+        
+            'title': forms.TextInput(
+                attrs={
+                    'class': 'form-control'
+                }),
+
+            'course': forms.Select(
+                attrs={
+                    'class': 'form-control'
+                }),
+            
+            
+        }        

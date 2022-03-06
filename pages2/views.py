@@ -1,25 +1,86 @@
-from asyncio.windows_events import NULL
-from cgitb import small
-from email.mime import image
-from pyexpat import model
-from turtle import title
+# from asyncio.windows_events import NULL
+# from cgitb import small
+# from email.mime import image
+# from pyexpat import model
+# from turtle import title
 from django.shortcuts import redirect, render
 
-from profile1.models import file
-from .models import BlogModel, Home,Course,Category,Contact,Message, blog_Category,Project_Category
+# from profile1.models import file
+from .models import BlogModel, Home,Course,Category,Contact,Message, Video, blog_Category,Project_Category
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth.models import User
-from profile1.models import file,Home 
+from profile1.models import file,Home,Coding_Skills,Professional_Skills,Experience,Education
 # Create your views here.
+from profile1.forms import Coding_SkillsForm,Professional_SkillsForm,ExperienceForm,EducationForm
 
 
-from .forms import BlogForm,ProjectForm, courseForm,servForm, videoForm
+from .forms import BlogForm,ProjectForm, courseForm, lessonForm,servForm, videoForm
+
+
+# import json
+
+# from django.http import JsonResponse
+
+
+
+# def validate_username(request): 
+#     username = request.GET.get('username')
+#     is_taken = User.objects.filter(username__iexact=username).exists()
+#     data = {'is_taken':is_taken}
+#     if data['is_taken']: 
+#         data['error_message'] = "The username already taken"
+#     return JsonResponse(data)
 
 
 
 
+# def autocomplete(request):
+#     if 'term' in request.GET:
+#         qs = BlogModel.objects.filter(is_serv=True,title__icontains=request.GET.get('term'))
+#         titles = list()
+#         for x in qs:
+#             titles.append(x.title)
+#         # titles = [product.title for product in qs]
+#         return JsonResponse(titles, safe=False)
+#     return render(request, 'services.html')
 
+
+def vid(request):
+    if request.user.is_tech == True and Home.objects.filter(user=request.user):
+        home = Home.objects.get(user=request.user)
+    else:
+        home = ''
+
+    vid = Video.objects.all()
+    disc = BlogModel.objects.all()
+    # vide = Video.objects.all().first()
+    return render(request,'video.html',{'vid':vid,'disc':disc,'home':home,})
+
+
+
+def vid2(request,slug):
+    if request.user.is_tech == True and Home.objects.filter(user=request.user):
+        home = Home.objects.get(user=request.user)
+    else:
+        home = ''
+
+    coursee = Course.objects.get(slug=slug)
+    disc = BlogModel.objects.filter(course=coursee)
+    dic = BlogModel.objects.filter(course=coursee).first()
+    # vide = Video.objects.all().first()
+    return render(request,'video2.html',{'disc':disc,'dic':dic,'home':home,})
+
+def vid3(request,slug):
+    if request.user.is_tech == True and Home.objects.filter(user=request.user):
+        home = Home.objects.get(user=request.user)
+    else:
+        home = ''
+
+    dic = BlogModel.objects.get(slug=slug)
+    disc = BlogModel.objects.filter(course=dic.course)
+    # vide = Video.objects.all().first()
+    return render(request,'video2.html',{'dic':dic,'disc':disc,'home':home,})
 
 
 
@@ -41,7 +102,7 @@ from .forms import BlogForm,ProjectForm, courseForm,servForm, videoForm
 
 
 def add_blog(request):
-    if request.user.is_authenticated:
+    if request.user.is_tech == True and Home.objects.filter(user=request.user):
         home = Home.objects.get(user=request.user)
     else:
         home = ''
@@ -93,7 +154,7 @@ def add_blog(request):
 
 
 def pro_add_blog(request):
-    if request.user.is_authenticated:
+    if request.user.is_tech == True and Home.objects.filter(user=request.user):
         home = Home.objects.get(user=request.user)
     else:
         home = ''
@@ -145,7 +206,7 @@ def pro_add_blog(request):
 
 
 def add_serv(request):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and Home.objects.filter(user=request.user):
         home = Home.objects.get(user=request.user)
     else:
         home = ''
@@ -193,7 +254,7 @@ def add_serv(request):
 
 
 def pro_add_serv(request):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and Home.objects.filter(user=request.user):
         home = Home.objects.get(user=request.user)
     else:
         home = ''
@@ -241,9 +302,8 @@ def pro_add_serv(request):
 
 
 
-
 def add_project(request):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and Home.objects.filter(user=request.user):
         home = Home.objects.get(user=request.user)
     else:
         home = ''
@@ -292,8 +352,9 @@ def add_project(request):
 
 
 
+
 def pro_add_project(request):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and Home.objects.filter(user=request.user):
         home = Home.objects.get(user=request.user)
     else:
         home = ''
@@ -341,7 +402,7 @@ def pro_add_project(request):
 
 
 def add_course(request):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and Home.objects.filter(user=request.user):
         home = Home.objects.get(user=request.user)
     else:
         home = ''
@@ -384,7 +445,7 @@ def add_course(request):
 
 
 def pro_add_course(request):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and Home.objects.filter(user=request.user):
         home = Home.objects.get(user=request.user)
     else:
         home = ''
@@ -426,39 +487,42 @@ def pro_add_course(request):
 
 
 def add_lesson(request):
-    if request.user.is_authenticated:
+    if request.user.is_tech == True and Home.objects.filter(user=request.user):
         home = Home.objects.get(user=request.user)
     else:
         home = ''    
-    context = {'form' : videoForm,'home':home}
+    context = {'form' : lessonForm,'home':home}
     try:
         if request.method == 'POST':
-            form = videoForm(request.POST,request.FILES)
+            form = lessonForm(request.POST,request.FILES)
             user = request.user
+            
             
             if form.is_valid():
                 title = form.cleaned_data['title']
                 image = form.cleaned_data['image']
                 content = form.cleaned_data['content']
-                is_blog = form.cleaned_data['is_blog']
-                blog_Category = form.cleaned_data['blog_Category']
+                coursee = form.cleaned_data['course']
                 is_project = form.cleaned_data['is_project']
-                project_Category = form.cleaned_data['project_Category']                
-                small_desc = form.cleaned_data['small_desc']
-                course = form.cleaned_data['course']
+                project_category = form.cleaned_data['project_Category']
+                is_blog = form.cleaned_data['is_blog']
+                blog_category = form.cleaned_data['blog_Category']
+                
+                
             blog_obj = BlogModel.objects.create(
                 user = user ,
                 title = title, 
-                image = image ,
+                image = image,
                 content = content,
-                is_blog = is_blog ,
-                blog_Category = blog_Category,
+                course = coursee,
                 is_project = is_project,
-                project_Category = project_Category,
-                small_desc = small_desc,
-                course = course
+                project_Category = project_category,
+                is_blog = is_blog,
+                blog_Category = blog_category,
+                
+            
             )
-            x = blog_obj
+            
 
             return redirect('/courses/')
             
@@ -525,6 +589,7 @@ def pro_add_lesson(request):
 
 
 
+
 def blog_delete(request , id):
     try:
         blog_obj = BlogModel.objects.get(id = id)
@@ -536,7 +601,6 @@ def blog_delete(request , id):
         print(e)
 
     return redirect('/blog/')
-
 
 
 
@@ -575,7 +639,7 @@ def lesson_delete(request , id):
     
     
     try:
-        blog_obj = BlogModel.objects.get(id = id)
+        blog_obj = Video.objects.get(id = id)
         
         if blog_obj.user == request.user:
             blog_obj.delete()
@@ -721,6 +785,25 @@ def delete_course_from_myprofile(request , id):
 
 
 
+def lesson_update(request , id):
+    if request.user.is_authenticated and Home.objects.filter(user=request.user):
+        home = Home.objects.get(user=request.user)
+    else:
+        home = ''
+    blog_id = Video.objects.get(id=id,user=request.user)
+    if request.method == 'POST':
+        blog_save = videoForm(request.POST , request.FILES , instance= blog_id)
+        if blog_save.is_valid():
+            blog_save.save()
+            return redirect('/courses/')
+    else:
+        blog_save = videoForm(instance=blog_id)
+        context = {
+        'form' : blog_save,
+        'home':home
+        }
+        return render(request , 'update_blog.html' ,context )
+    
 
 
 
@@ -730,7 +813,7 @@ def delete_course_from_myprofile(request , id):
 
 
 def blog_update(request , id):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and Home.objects.filter(user=request.user):
         home = Home.objects.get(user=request.user)
     else:
         home = ''
@@ -757,7 +840,7 @@ def blog_update(request , id):
 
 
 def pro_blog_update(request , id):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and Home.objects.filter(user=request.user):
         home = Home.objects.get(user=request.user)
     else:
         home = ''
@@ -782,8 +865,187 @@ def pro_blog_update(request , id):
 
 
 
+
+
+
+
+
+def pro_skl_update(request , id):
+    if request.user.is_authenticated and Home.objects.filter(user=request.user):
+        home = Home.objects.get(user=request.user)
+    else:
+        home = ''
+    blog_id = Coding_Skills.objects.get(id=id,user=request.user)
+    if request.method == 'POST':
+        blog_save = Coding_SkillsForm(request.POST , request.FILES , instance= blog_id)
+        if blog_save.is_valid():
+            blog_save.save()
+            return redirect('/myprofile/')
+    else:
+        blog_save = Coding_SkillsForm(instance=blog_id)
+        context = {
+        'form' : blog_save,
+        'home':home
+        }
+        return render(request , 'update_blog.html' ,context )
+
+
+
+
+
+def pro_skl_delete(request , id):
+    try:
+        blog_obj = Coding_Skills.objects.get(id = id,user = request.user)
+        
+        if blog_obj.user == request.user:
+            blog_obj.delete()
+        
+    except Exception as e :
+        print(e)
+
+    return redirect('/myprofile/')
+
+
+
+
+
+
+
+
+
+
+
+def pro_prof_skl_update(request , id):
+    if request.user.is_authenticated and Home.objects.filter(user=request.user):
+        home = Home.objects.get(user=request.user)
+    else:
+        home = ''
+    blog_id = Professional_Skills.objects.get(id=id,user=request.user)
+    if request.method == 'POST':
+        blog_save = Professional_SkillsForm(request.POST , request.FILES , instance= blog_id)
+        if blog_save.is_valid():
+            blog_save.save()
+            return redirect('/myprofile/')
+    else:
+        blog_save = Professional_SkillsForm(instance=blog_id)
+        context = {
+        'form' : blog_save,
+        'home':home
+        }
+        return render(request , 'update_blog.html' ,context )
+
+
+
+
+
+
+def pro_prof_skl_delete(request , id):
+    try:
+        blog_obj = Professional_Skills.objects.get(id = id,user = request.user)
+        
+        if blog_obj.user == request.user:
+            blog_obj.delete()
+        
+    except Exception as e :
+        print(e)
+
+    return redirect('/myprofile/')
+
+
+
+
+
+
+
+
+def pro_exp_update(request , id):
+    if request.user.is_authenticated and Home.objects.filter(user=request.user):
+        home = Home.objects.get(user=request.user)
+    else:
+        home = ''
+    blog_id = Experience.objects.get(id=id,user=request.user)
+    if request.method == 'POST':
+        blog_save = ExperienceForm(request.POST , request.FILES , instance= blog_id)
+        if blog_save.is_valid():
+            blog_save.save()
+            return redirect('/myprofile/')
+    else:
+        blog_save = ExperienceForm(instance=blog_id)
+        context = {
+        'form' : blog_save,
+        'home':home
+        }
+        return render(request , 'update_blog.html' ,context )
+
+
+
+
+
+
+
+def pro_exp_delete(request , id):
+    try:
+        blog_obj = Experience.objects.get(id = id,user = request.user)
+        
+        if blog_obj.user == request.user:
+            blog_obj.delete()
+        
+    except Exception as e :
+        print(e)
+
+    return redirect('/myprofile/')
+
+
+
+
+
+
+
+
+def pro_edu_update(request , id):
+    if request.user.is_authenticated and Home.objects.filter(user=request.user):
+        home = Home.objects.get(user=request.user)
+    else:
+        home = ''
+    blog_id = Education.objects.get(id=id,user=request.user)
+    if request.method == 'POST':
+        blog_save = EducationForm(request.POST , request.FILES , instance= blog_id)
+        if blog_save.is_valid():
+            blog_save.save()
+            return redirect('/myprofile/')
+    else:
+        blog_save = EducationForm(instance=blog_id)
+        context = {
+        'form' : blog_save,
+        'home':home
+        }
+        return render(request , 'update_blog.html' ,context )
+
+
+
+
+
+def pro_edu_delete(request , id):
+    try:
+        blog_obj = Education.objects.get(id = id,user = request.user)
+        
+        if blog_obj.user == request.user:
+            blog_obj.delete()
+        
+    except Exception as e :
+        print(e)
+
+    return redirect('/myprofile/')
+
+
+
+
+
+
+
+
 def course_update(request , id):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and Home.objects.filter(user=request.user):
         home = Home.objects.get(user=request.user)
     else:
         home = ''
@@ -810,7 +1072,7 @@ def course_update(request , id):
 
 
 def pro_course_update(request , id):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and Home.objects.filter(user=request.user):
         home = Home.objects.get(user=request.user)
     else:
         home = ''
@@ -833,7 +1095,7 @@ def pro_course_update(request , id):
 
 
 def serv_update(request , id):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and Home.objects.filter(user=request.user):
         home = Home.objects.get(user=request.user)
     else:
         home = ''
@@ -860,7 +1122,7 @@ def serv_update(request , id):
 
 
 def pro_serv_update(request , id):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and Home.objects.filter(user=request.user):
         home = Home.objects.get(user=request.user)
     else:
         home = ''
@@ -886,7 +1148,7 @@ def pro_serv_update(request , id):
 
 
 def project_update(request , id):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and Home.objects.filter(user=request.user):
         home = Home.objects.get(user=request.user)
     else:
         home = ''
@@ -911,7 +1173,7 @@ def project_update(request , id):
 
 
 def pro_project_update(request , id):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and Home.objects.filter(user=request.user):
         home = Home.objects.get(user=request.user)
     else:
         home = ''
@@ -937,7 +1199,7 @@ def pro_project_update(request , id):
 
 
 def video_update(request , id):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and Home.objects.filter(user=request.user):
         home = Home.objects.get(user=request.user)
     else:
         home = ''
@@ -960,11 +1222,16 @@ def video_update(request , id):
 
 
 def home(request):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and Home.objects.filter(user=request.user):
         home = Home.objects.get(user=request.user)
     else:
         home = ''
-    return render(request,'home.html',{'home':home})
+    serv=BlogModel.objects.filter(is_serv = True)
+    course=Course.objects.all()
+    blogs=BlogModel.objects.filter(is_blog=True)
+    
+    x={'services':serv,'home':home,'courses':course,'blogs':blogs,}
+    return render(request,'home.html',x)
 
 
 
@@ -975,17 +1242,17 @@ def home2(request):
 
 
 def services(request):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and Home.objects.filter(user=request.user):
         home = Home.objects.get(user=request.user)
     else:
         home = ''
     serv=BlogModel.objects.filter(is_serv = True)
-    x={'services':serv,'home':home}
+    x={'services':serv,'home':home,'courses':course,}
     return render(request,'services.html',x)
 
 
 def projects(request):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and Home.objects.filter(user=request.user):
         home = Home.objects.get(user=request.user)
     else:
         home = ''
@@ -997,7 +1264,7 @@ def projects(request):
 
 
 def courses(request):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and Home.objects.filter(user=request.user):
         home = Home.objects.get(user=request.user)
     else:
         home = ''
@@ -1013,20 +1280,20 @@ def courses(request):
 
 
             
-                    
+
 def course(request, slug):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and Home.objects.filter(user=request.user):
         home = Home.objects.get(user=request.user)
     else:
         home = ''
     coursee = Course.objects.get(slug=slug)
-    video=BlogModel.objects.filter(course=coursee.id)
+    video=Video.objects.filter(course=coursee)
     x={'cors': coursee,
-       'video':video.order_by('vid_num'),
+       'vid':video,
        'home':home
        }
     
-    return render(request,'course-3.html',x)
+    return render(request,'video.html',x)
 
 
 
@@ -1034,7 +1301,7 @@ def course(request, slug):
 
 
 def serv_detail(request , slug):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and Home.objects.filter(user=request.user):
         home = Home.objects.get(user=request.user)
     else:
         home = ''
@@ -1055,7 +1322,7 @@ def serv_detail(request , slug):
 
 
 def blog_detail(request , slug):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and Home.objects.filter(user=request.user):
         home = Home.objects.get(user=request.user)
     else:
         home = ''
@@ -1084,7 +1351,7 @@ def blog_detail(request , slug):
 
 
 def blog_detail1(request , slug):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and Home.objects.filter(user=request.user):
         home = Home.objects.get(user=request.user)
     else:
         home = ''
@@ -1104,7 +1371,7 @@ def blog_detail1(request , slug):
 
 
 def teachers(request):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and Home.objects.filter(user=request.user):
         home = Home.objects.get(user=request.user)
     else:
         home = ''
@@ -1118,7 +1385,7 @@ def teachers(request):
 
 
 def blog(request):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and Home.objects.filter(user=request.user):
         home = Home.objects.get(user=request.user)
     else:
         home = ''
@@ -1133,16 +1400,21 @@ def blog(request):
 
 
 def contact(request):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and Home.objects.filter(user=request.user):
         home = Home.objects.get(user=request.user)
     else:
         home = ''
     contact=Contact.objects.all()
     myinfo = Message.objects.first()
 
-    if request.method == 'POST':
+    if request.method == 'POST' and request.user.is_authenticated:
         subject = request.POST['subject']
-        email = request.POST['email']
+        if request.user.email:
+            email = request.user.email
+        elif request.user.username:
+            email = request.user.username
+        else:
+            return redirect('/contact/')
         message = request.POST['message']
 
         send_mail(

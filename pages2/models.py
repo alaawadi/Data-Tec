@@ -14,13 +14,29 @@ from profile1.models import Category
 
 from froala_editor.fields import FroalaField
 from .helpers import *
+from django.contrib.auth.models import AbstractUser
+from django.conf import settings
+
+
+class User(AbstractUser):
+    email = models.EmailField(unique=True)
+    is_tech = models.BooleanField(default=False)
+    is_student = models.BooleanField(default=False)
+    # is_email_verified = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.username
+
+
+
+
 
 
 class BlogModel(models.Model):
     title = models.CharField(max_length=1000)
     content = FroalaField()
     slug = models.SlugField(max_length=1000 , null=True , blank=True)
-    user = models.ForeignKey(User, blank=True , null=True , on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True , null=True , on_delete=models.CASCADE)
     image = models.ImageField(upload_to='media/blog',null=True,blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     upload_to = models.DateTimeField(auto_now=True)
@@ -54,7 +70,7 @@ class BlogModel(models.Model):
 
 
 class Project_Category(models.Model):
-    user = models.ForeignKey(User, blank=True , null=True , on_delete=models.CASCADE) 
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True , null=True , on_delete=models.CASCADE) 
     title = models.CharField(max_length=1000)
     img = models.ImageField(upload_to='images/procat')
     slug = models.SlugField(max_length=1000 , null=True , blank=True)
@@ -72,14 +88,14 @@ def home_img(instance,filename):
     return "home/%s.%s"%(instance.id,extension)
 
 class Home(models.Model):
-    img = models.ImageField(upload_to=home_img)
-    title = models.CharField(max_length=100)
-    disc = models.TextField(max_length=400)
+    img = models.ImageField(upload_to=home_img,null=True,blank=True)
+    title = models.CharField(max_length=100 ,null=True,blank=True)
+    disc = models.TextField(max_length=400,null=True,blank=True)
     
     def __str__(self):
         return self.title
     
-    
+
     
     
     
@@ -92,7 +108,7 @@ class Course(models.Model):
     img = models.ImageField(upload_to=course_img)
     title = models.CharField(max_length=100)
     disc = models.TextField(max_length=200)
-    owner = models.ForeignKey(User, related_name='course_owner', on_delete=models.CASCADE)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='course_owner', on_delete=models.CASCADE)
     category= models.ForeignKey('Category',on_delete=models.CASCADE)
     date = models.DateField(auto_now=True)
     slug = models.SlugField(blank=True,null=True)
@@ -123,12 +139,13 @@ def code(instance,filename):
 
 class Video(models.Model):
     video=models.FileField(upload_to=video)
-    image = models.ImageField(upload_to=video_img)
+    image = models.ImageField(upload_to=video_img,blank=True,null=True)
     title = models.CharField(max_length=100)
     disc= models.TextField(blank=True,null=True)
     code = models.FileField(upload_to=code,blank=True,null=True)
-    course = models.ForeignKey(Course,on_delete=models.CASCADE)
-    
+    course = models.ForeignKey(Course,on_delete=models.CASCADE,blank=True,null=True)
+    content = FroalaField()
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     
     def __str__(self):
         return str(self.course)  + self.title
@@ -203,7 +220,7 @@ def blog_img(instance,filename):
 class Blog(models.Model):
     img = models.ImageField(upload_to=blog_img)
     date = models.DateField(auto_now=True)
-    owner = models.ForeignKey(User, related_name='blog_owner', on_delete=models.CASCADE)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='blog_owner', on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     smol_disc = models.TextField(max_length=200)
     big_disc = models.TextField(max_length=100000)

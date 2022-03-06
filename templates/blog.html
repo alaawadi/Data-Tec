@@ -2,10 +2,78 @@
 {% load static %}
 {% block content %}
 
+<!--
+
+        
+    <div class="scrollmenu" style="  background-color: #333;
+    overflow: auto;
+    white-space: nowrap;">
+    <a style="display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;" href="#home">Home</a>
+    <a style="display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;" href="#news">News</a>
+    <a style="display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;" href="#contact">Contact</a>
+    <a style="display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;" href="#about">About</a>
+    <a style="display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;" href="#about">About</a>
+    <a style="display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;" href="#about">About</a>
+    <a style="display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;" href="#about">About</a>
+    <a style="display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;" href="#about">About</a>
+    <a style="display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;" href="#about">About</a>
+    <a style="display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;" href="#about">About</a>
+    <a style="display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;" href="#about">About</a>
+    
+  </div>
+
+
+
+-->
+
 <section class="heading">
     <h3>our blogs</h3>
     <p> <a href="{% url 'home' %}">home >></a> blogs </p>
-    {% if user.is_authenticated %}
+    {% if request.user.is_tech == True %}
     <a href="{% url 'add_blog' %}" class="btn">add blog</a>
     {% endif %}
 </section>
@@ -48,7 +116,7 @@
             <a href="{% url 'blog_detail1' x.slug %}" class="btn">read more</a>
             <br>
         <br>
-            {% if x.user == request.user %}
+            {% if x.user == request.user and request.user.is_tech == True %}
             <a href="{% url 'blog_delete' x.id %}" class="btn1">Delete</a>
             <a href="{% url 'blog_update' x.id %}" class="btn2">update</a>
             {% endif %}
